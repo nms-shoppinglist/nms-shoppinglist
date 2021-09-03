@@ -255,7 +255,7 @@ function listAllCrafting() {
 
   craftingData.forEach( row => {
     var {name, value} = row;
-    var cells = [`<a href="/?item=${name}">${name}</a>`, value];
+    var cells = [`<a href="/nms-shoppinglist/?item=${name}">${name}</a>`, value];
     tableRow(cells);
   });
 }
