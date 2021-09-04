@@ -213,11 +213,61 @@ function init() {
   let params = new URL(document.location).searchParams;
   let item = params.get("item");
 
-  if (searchIn(craftingData, item)) {
+  if (searchFor(item)) {
     displayShoppingList(item);
   } else {
-    listAllCrafting();
+    listAll();
   }
+}
+
+function listAll(data = craftingData) {
+  var headings = ["<b>Item</b>", "<b>Value</b>"];
+  tableRow(headings);
+
+  data.forEach( row => {
+    var {name, value} = row;
+    var cells = [`<a href="/?item=${name}">${name}</a>`, value];
+    tableRow(cells);
+  });
+}
+
+function displayShoppingList(item) {
+  var container = addContainer(document.body);
+
+  var found = searchFor(item);
+  addHeading(`${item} <sup>${found.value}u</sup>`, container);
+  addResourcesTable(found.resources, container);
+
+  presentCraftingResources(found.resources, container);
+}
+
+function presentCraftingResources(resources, container) {
+  resources.forEach(
+    (resource) => {
+      var found = searchFor(resource.name);
+      if(found) {
+        var box = addContainer(container);
+        addHeading(`${resource.name} x ${resource.qty}` , box);
+        addResourcesTable(found.resources, box);
+        presentCraftingResources(found.resources, box);
+      };
+    }
+  );
+}
+
+// Build a shopping list for item.
+// {
+//  name: "",
+//   
+// }
+function selectResourcesFor(item) {
+
+}
+
+function searchFor(item, data = craftingData) {
+  var found = data.find((product, index) => product.name == item);
+  console.log(found);
+  return found;
 }
 
 function addHeading(text, container = document.body) {
@@ -247,47 +297,6 @@ function tableRow(cells, table = document.getElementById("crafting")) {
   });
 
   table.appendChild(tr);
-}
-
-function listAllCrafting() {
-  var headings = ["<b>Item</b>", "<b>Value</b>"];
-  tableRow(headings);
-
-  craftingData.forEach( row => {
-    var {name, value} = row;
-    var cells = [`<a href="/?item=${name}">${name}</a>`, value];
-    tableRow(cells);
-  });
-}
-
-function displayShoppingList(item) {
-  var container = addContainer(document.body);
-
-  var found = searchIn(craftingData, item);
-  addHeading(`${item} <sup>${found.value}u</sup>`, container);
-  addResourcesTable(found.resources, container);
-
-  drillDownResources(found.resources, craftingData, container);
-}
-
-function drillDownResources(resources, all, container) {
-  resources.forEach(
-    (resource) => {
-      var found = searchIn(all, resource.name);
-      if(found) {
-        var box = addContainer(container);
-        addHeading(`${resource.name} x ${resource.qty}` , box);
-        addResourcesTable(found.resources, box);
-        drillDownResources(found.resources, all, box);
-      };
-    }
-  );
-}
-
-function searchIn(values, item) {
-  var found = values.find((product, index) => product.name == item);
-  console.log(found);
-  return found;
 }
 
 function addContainer(parent, className = "box") {
