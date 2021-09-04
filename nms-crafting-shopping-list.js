@@ -274,7 +274,7 @@ function drillDownResources(resources, all, container) {
   resources.forEach(
     (resource) => {
       var found = searchIn(all, resource.name);
-      if(found && compact(found.resources)) {
+      if(found) {
         var box = addContainer(container);
         addHeading(`${resource.name} x ${resource.qty}` , box);
         addResourcesTable(found.resources, box);
@@ -296,8 +296,4 @@ function addContainer(parent, className = "box") {
   container.className = className;
   parent.appendChild(container);
   return container;
-}
-
-function compact(resources) {
-  return resources.filter((i) => i.name && i.qty );
 }
