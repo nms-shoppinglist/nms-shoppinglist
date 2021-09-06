@@ -75,6 +75,10 @@ tr:nth-child(odd) {
 }
 
 
+td:last-child {
+  text-align: right;
+}
+
 a, a:visited {
   color: #4183C4;
   background-color: inherit;
