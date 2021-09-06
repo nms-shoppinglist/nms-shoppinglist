@@ -281,15 +281,16 @@ function index(data = craftingData) {
 
 function shoppingList(item) {
   var found = searchFor(item);
-  displayElement(`${item}: ${found.value}u`, "h1");
-  displayElement("Shopping List...", "h2");
+  displayElement(`${item}`, "h1");
+  displayElement(`${found.value}`, "p.units");
   if(filterOnCraftable(found.resources).length > 0) {
+    displayElement("Craftable Components", "h2");
 
   // Craftable shopping list...
     let componentTable = displayResourcesTable(null, document.body, "Component", "Quantity");
     showResources(found.resources, componentTable);
   }
-  displayElement(`<a name="bom"></a>`);
+  displayElement(`<a name="mined_and_cultivated"></a>`);
 
   showBillOfMaterials(item);
 }
@@ -322,7 +323,7 @@ function sortResouces(a, b) {
   return a.name < b.name ? -1 : 1;
 }
 
-function reducedResouces(resources) {
+function aggregatedResouces(resources) {
   return resources.reduce((p, c) => {
 
     // Check for exisiting resource and add to it.
@@ -351,14 +352,28 @@ function getSortedResources(item) {
 }
 
 function showBillOfMaterials(item){
-  displayElement(`<a name="bom"></a> ${item} - Bill of Materials`, "h2");
-  displayResourcesTable(filterOnMinedAndCultivated(reducedResouces(getSortedResources(item))));
+  displayElement(`<a name="mined_and_cultivated"></a>Mined and cultivated materials`, "h2");
+  displayResourcesTable(filterOnMinedAndCultivated(aggregatedResouces(getSortedResources(item))));
 }
 
 // html helpers
+
 function displayElement(text, htmlElementName = "p", container = document.body) {
+  var className;
+
+  if(htmlElementName.includes('.')) {
+    let elementParts = htmlElementName.split(".");
+    htmlElementName = elementParts[0];
+    className = elementParts[1];
+  }
+
   var element = document.createElement(htmlElementName);
   element.innerHTML = text;
+
+  if (className !== undefined) {
+    element.className = className;
+  }
+
   container.appendChild(element);
   return element;
 }

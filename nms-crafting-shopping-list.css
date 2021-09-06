@@ -1,9 +1,16 @@
-.box {
+p.units {
+  display: table-cell;
+  vertical-align: bottom;
+  text-align: center;
+  background-color: black;
+  color: white;
+  border-radius: 3pt;
+  background-image: url('units.png');
+  background-size: contain;
+  background-repeat: no-repeat;
   padding: 1em;
-  margin: 1em;
-  border-radius: 1em;
-  border: 1px solid black;
-  background: rgba(0,10,40,0.05);;
+  padding-left: 3em;
+  font-size: 8pt;
 }
 
 body {
