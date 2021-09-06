@@ -281,14 +281,14 @@ function index(data = craftingData) {
 
 function shoppingList(item) {
   var found = searchFor(item);
-  displayElement(`${item} : ${found.value}u`, "h1");
+  displayElement(`${item}: ${found.value}u`, "h1");
   displayElement("Shopping List...", "h2");
-  displayElement(`Mine / harvest the materials from the <a href="#bom">bill of materials</a>. Then craft these components in order (last first). After that you can craft the ${item}`, "p");
+  if(filterOnCraftable(found.resources).length > 0) {
 
-  let componentTable = displayResourcesTable(null, document.body, "Component", "Quantity");
-
-  showResources(found.resources, componentTable);
-
+  // Craftable shopping list...
+    let componentTable = displayResourcesTable(null, document.body, "Component", "Quantity");
+    showResources(found.resources, componentTable);
+  }
   displayElement(`<a name="bom"></a>`);
 
   showBillOfMaterials(item);
@@ -299,7 +299,7 @@ function showResources(resources, table) {
     (resource) => {
       var found = searchFor(resource.name);
       if(found) {
-        addTableRow([resource.name, resource.qty], table);
+        addTableRow([`<a href="/?item=${resource.name}">${resource.name}</a>`, resource.qty], table);
         showResources(found.resources, table);
       };
     }
@@ -324,20 +324,26 @@ function sortResouces(a, b) {
 
 function reducedResouces(resources) {
   return resources.reduce((p, c) => {
-      let i = p?.map(a => a.name).indexOf(c.name);
 
-      if(i > -1) {
-        p[i].qty += c.qty;
-      } else {
-        p?.push(c);
-      }
+    // Check for exisiting resource and add to it.
+    let i = p?.findIndex( e => e.name === c.name );
 
+    if(i > -1) {
+      p[i].qty += c.qty;
       return p;
-    }, []);
+    }
+
+    p?.push(c);
+    return p;
+  }, []);
 }
 
 function filterOnMinedAndCultivated(resources) {
-  return resources.filter( (r) => minedAndCultivated.includes(r.name));
+  return resources.filter( r => minedAndCultivated.includes(r.name) );
+}
+
+function filterOnCraftable(resources) {
+  return resources.filter( r => !minedAndCultivated.includes(r.name) );
 }
 
 function getSortedResources(item) {
@@ -346,7 +352,6 @@ function getSortedResources(item) {
 
 function showBillOfMaterials(item){
   displayElement(`<a name="bom"></a> ${item} - Bill of Materials`, "h2");
-  displayElement(`Mine / harvest these materials to craft all the components of the ${item}`, "p");
   displayResourcesTable(filterOnMinedAndCultivated(reducedResouces(getSortedResources(item))));
 }
 
