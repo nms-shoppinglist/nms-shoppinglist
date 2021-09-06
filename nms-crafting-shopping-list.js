@@ -271,7 +271,7 @@ function index(data = craftingData) {
 
   data.forEach( row => {
     var {name, value} = row;
-    var cells = [`<a href="/?item=${name}">${name}</a>`, value];
+    var cells = [`<a href="/?item=${name}">${name}</a>`, numberWithCommas(value)];
     addTableRow(cells);
   });
 }
@@ -279,7 +279,7 @@ function index(data = craftingData) {
 function shoppingList(item) {
   var found = searchFor(item);
   displayElement(`${item}`, "h1");
-  displayElement(`${found.value}`, "p.units");
+  displayElement(`${numberWithCommas(found.value)}`, "p.units");
   if(filterOnCraftable(found.resources).length > 0) {
     displayElement("Craftable Components", "h2");
 
