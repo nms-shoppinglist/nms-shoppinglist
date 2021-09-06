@@ -63,8 +63,6 @@ table {
 }
 
 table, th, td {
-  border: 0.5pt solid #EAEAEA;
-  border-radius: 4pt;
   padding: 1em;
 }
 
