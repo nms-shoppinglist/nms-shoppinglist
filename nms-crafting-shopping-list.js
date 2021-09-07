@@ -247,7 +247,7 @@ function init() {
   let params = new URL(document.location).searchParams;
   let item = params.get("item");
 
-  if (searchFor(item)) {
+  if (searchForComponent(item)) {
     shoppingList(item);
   } else {
     index();
@@ -256,7 +256,7 @@ function init() {
 
 // data logic
 
-function searchFor(item, data = craftingData) {
+function searchForComponent(item, data = craftingData) {
   var found = data.find((product, index) => product.name == item);
   return found;
 }
@@ -277,7 +277,7 @@ function index(data = craftingData) {
 }
 
 function shoppingList(item) {
-  var found = searchFor(item);
+  var found = searchForComponent(item);
   displayElement(`${item}`, "h1");
   displayElement(`${numberWithCommas(found.value)}`, "p.units");
   if(filterOnCraftable(found.resources).length > 0) {
@@ -295,9 +295,9 @@ function shoppingList(item) {
 function showResources(resources, table) {
   resources.forEach(
     (resource) => {
-      var found = searchFor(resource.name);
+      var found = searchForComponent(resource.name);
       if(found) {
-        let value = searchFor(resource.name)?.value;
+        let value = searchForComponent(resource.name)?.value;
         addTableRow([`<a href="/?item=${resource.name}">${resource.name}</a>`, resource.qty, numberWithCommas(value)], table);
         showResources(found.resources, table);
       };
@@ -309,7 +309,7 @@ function getResources(resources, collection = []) {
   resources?.forEach(
     (resource) => {
         collection.push(resource);
-        var found = searchFor(resource?.name);
+        var found = searchForComponent(resource?.name);
         return getResources(found?.resources, collection);
     }
   );
@@ -346,7 +346,7 @@ function filterOnCraftable(resources) {
 }
 
 function getSortedResources(item) {
-  return getResources(searchFor(item).resources).sort(sortResouces);
+  return getResources(searchForComponent(item).resources).sort(sortResouces);
 }
 
 function addCostToMinedAndCultivatedResources(resources) {
@@ -368,7 +368,7 @@ function showMinedAndCultivatedMaterials(item){
     return c.cost + p;
   }, 0);
 
-  let profit =  searchFor(item).value - totalCost;
+  let profit =  searchForComponent(item).value - totalCost;
 
   displayResourcesTable(
     transformedResources.concat(
