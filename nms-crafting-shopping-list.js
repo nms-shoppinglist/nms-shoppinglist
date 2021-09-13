@@ -912,7 +912,9 @@ function getResources(resources, collection = []) {
   return collection;
 }
 
-function getComponentTree(component) {
+function getComponentTree(componentName) {
+  let component = searchForComponent(componentName);
+
   let resourceTree = {
     name: component.name,
     value: component.value,
@@ -920,15 +922,25 @@ function getComponentTree(component) {
     rawMaterials: filterOnRawMaterials(component.resources)
   };
 
-  resourceTree.craftable.map( i => {
-    i.cost = i.qty * searchForComponent(i.name).value;
-    return i;
-  });
+  if(resourceTree.craftable.length > 0) {
+    resourceTree.craftable.map( i => {
+      i.cost = i.qty * searchForComponent(i.name).value;
+      return i;
+    });
 
-  resourceTree.rawMaterials.map( i => {
-    i.cost = rawMaterials.find( e => i.name == e.name ).value * i.qty;
-    return i;
-  });
+    resourceTree.craftable.forEach( i => {
+      let subTree = getComponentTree(i.name);
+      i.craftable = subTree.craftable;
+      i.rawMaterials = subTree.rawMaterials;
+    });
+  }
+
+  if(resourceTree.rawMaterials.length > 0) {
+    resourceTree.rawMaterials.map( i => {
+      i.cost = rawMaterials.find( e => i.name == e.name ).value * i.qty;
+      return i;
+    });
+  }
 
   return resourceTree;
 }

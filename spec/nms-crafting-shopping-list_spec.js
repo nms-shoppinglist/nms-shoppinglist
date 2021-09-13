@@ -27,7 +27,8 @@ describe ("NMS Crafting Shopping List", () => {
       {name: "Living Glass"},
       {name: "Lubricant"},
       {name: "Carbon"},
-      {name: "Condensed Carbon"}
+      {name: "Condensed Carbon"},
+      {name: "Chromatic Metal"}
     ];
 
     describe('filterOnRawMaterials', () => {
@@ -36,7 +37,8 @@ describe ("NMS Crafting Shopping List", () => {
         expect(filtered).toEqual([
           {name: "Gold"},
           {name: "Carbon"},
-          {name: "Condensed Carbon"}
+          {name: "Condensed Carbon"},
+          {name: "Chromatic Metal"}
         ]);
       });
     });
@@ -57,7 +59,7 @@ describe ("NMS Crafting Shopping List", () => {
     describe('building component tree', ()=> {
 
       it('should create a new object tree for the component', ()=> {
-        let component = searchForComponent('Living Glass');
+        let component = 'Living Glass';
         let component_tree = getComponentTree(component);
 
         expect(component).not.toBe(component_tree); // not a reference!
@@ -66,7 +68,7 @@ describe ("NMS Crafting Shopping List", () => {
       });
 
       it('should provide a list of craftable componentns separate from raw materials', ()=> {
-        let component = searchForComponent('AtlasPass v2');
+        let component = 'AtlasPass v2';
         let component_tree = getComponentTree(component);
 
         expect(component_tree.craftable).toBeDefined();
@@ -82,7 +84,7 @@ describe ("NMS Crafting Shopping List", () => {
       });
 
       it('should calculate the cost of craftable components', () => {
-        let component = searchForComponent('Living Glass');
+        let component = 'Living Glass';
         let component_tree = getComponentTree(component);
 
         expect(component_tree.craftable[0].name).toEqual('Glass');
@@ -91,21 +93,61 @@ describe ("NMS Crafting Shopping List", () => {
       });
 
       it('should calculate the cost of raw materials', () => {
-        let component = searchForComponent('AtlasPass v2');
+        let component = 'Microprocessor';
         let component_tree = getComponentTree(component);
 
-        expect(component_tree.craftable[0].name).toEqual('Microprocessor');
-        expect(component_tree.craftable[0].qty).toEqual(1);
-        expect(component_tree.craftable[0].cost).toEqual(1 * 2000);
+        expect(component_tree.rawMaterials[0].name).toEqual('Chromatic Metal');
+        expect(component_tree.rawMaterials[0].qty).toEqual(40);
+        expect(component_tree.rawMaterials[0].cost).toEqual(40 * 245);
       });
 
-      xit('should collect all craftable and raw materials required for the component', ()=> {
-        let component = searchForComponent('AtlasPass v2');
+      it('should collect all craftable and raw materials required for the component', ()=> {
+        let component = 'AtlasPass v2';
         let component_tree = getComponentTree(component);
 
-        expect(component_tree.craftable[0].resources).toBeDefined();
-      });
+        let expected_tree = {
+          name: "AtlasPass v2",
+          value: 1856,
+          craftable: [
+            {
+              name: "Microprocessor",
+              qty: 1,
+              cost: 2000,
+              craftable: [
+                {
+                  name: "Carbon Nanotubes",
+                  qty: 1,
+                  cost: 500,
+                  craftable: [],
+                  rawMaterials: [
+                    {
+                      name: "Carbon",
+                      qty: 50,
+                      cost: 350
+                    }
+                  ]
+                }
+              ],
+              rawMaterials: [
+                {
+                  name: "Chromatic Metal",
+                  qty: 40,
+                  cost: 9800
+                }
+              ]
+            }
+          ],
+          rawMaterials: [
+            {
+              name: "Cadmium",
+              qty: 200,
+              cost: 46800
+            }
+          ]
+        };
 
+        expect(component_tree).toEqual(expected_tree);
+      });
     });
   });
 });
