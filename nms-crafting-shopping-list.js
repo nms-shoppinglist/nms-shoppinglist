@@ -317,7 +317,7 @@ function getResources(resources, collection = []) {
   return collection;
 }
 
-function sortResouces(a, b) {
+function sortResources(a, b) {
   return a.name < b.name ? -1 : 1;
 }
 
@@ -346,7 +346,7 @@ function filterOnCraftable(resources) {
 }
 
 function getSortedResources(item) {
-  return getResources(searchForComponent(item).resources).sort(sortResouces);
+  return getResources(searchForComponent(item).resources).sort(sortResources);
 }
 
 function addCostToMinedAndCultivatedResources(resources) {
