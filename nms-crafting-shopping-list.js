@@ -391,16 +391,6 @@ var craftingData = [
     ]
   },
   {
-    name: "Salt Refractor",
-    value: 30500,
-    resources: [
-      {
-        name: "Galactic Trade Terminal",
-        qty: 1
-      }
-    ]
-  },
-  {
     name: "Lemmium",
     value: 25000,
     resources: [
@@ -466,16 +456,6 @@ var craftingData = [
       },
       {
         name: "Ionised Cobalt",
-        qty: 1
-      }
-    ]
-  },
-  {
-    name: "Cobalt Mirror",
-    value: 20500,
-    resources: [
-      {
-        name: "Galactic Trade Terminal",
         qty: 1
       }
     ]
