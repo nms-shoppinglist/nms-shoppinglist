@@ -932,6 +932,19 @@ function getResources(resources, collection = []) {
   return collection;
 }
 
+function getComponentTree(component) {
+  let resourceTree = {
+    name: component.name,
+    value: component.value,
+    craftable: filterOnCraftable(component.resources),
+    minedAndCultivated: filterOnMinedAndCultivated(component.resources)
+  };
+
+  //TODO: costs must be calculated for resources
+
+  return resourceTree;
+}
+
 function sortResources(a, b) {
   return a.name < b.name ? -1 : 1;
 }
