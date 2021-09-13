@@ -700,7 +700,7 @@ var craftingData = [
   }
 ];
 
-let minedAndCultivated = [
+let rawMaterials = [
   {
     name: "Ammonia",
     value: 62
@@ -882,9 +882,9 @@ function shoppingList(item) {
     let componentTable = displayResourcesTable(null, document.body, ["Component", "Quantity", "Cost"]);
     showResources(found.resources, componentTable);
   }
-  displayElement(`<a name="mined_and_cultivated"></a>`);
+  displayElement(`<a name="raw_materials"></a>`);
 
-  showMinedAndCultivatedMaterials(item);
+  showRawMaterials(item);
 }
 
 function showResources(resources, table) {
@@ -917,10 +917,18 @@ function getComponentTree(component) {
     name: component.name,
     value: component.value,
     craftable: filterOnCraftable(component.resources),
-    minedAndCultivated: filterOnMinedAndCultivated(component.resources)
+    rawMaterials: filterOnRawMaterials(component.resources)
   };
 
-  //TODO: costs must be calculated for resources
+  resourceTree.craftable.map( i => {
+    i.cost = i.qty * searchForComponent(i.name).value;
+    return i;
+  });
+
+  resourceTree.rawMaterials.map( i => {
+    i.cost = rawMaterials.find( e => i.name == e.name ).value * i.qty;
+    return i;
+  });
 
   return resourceTree;
 }
@@ -945,30 +953,30 @@ function aggregatedResouces(resources) {
   }, []);
 }
 
-function filterOnMinedAndCultivated(resources) {
-  return resources.filter( r => minedAndCultivated.map( e => e.name ).includes(r.name) );
+function filterOnRawMaterials(resources) {
+  return resources.filter( r => rawMaterials.map( e => e.name ).includes(r.name) );
 }
 
 function filterOnCraftable(resources) {
-  return resources.filter( r => !minedAndCultivated.map( e => e.name ).includes(r.name) );
+  return resources.filter( r => !rawMaterials.map( e => e.name ).includes(r.name) );
 }
 
 function getSortedResources(item) {
   return getResources(searchForComponent(item).resources).sort(sortResources);
 }
 
-function addCostToMinedAndCultivatedResources(resources) {
+function addCostToRawMaterialsResources(resources) {
   return resources.map( r => {
-    r.cost = minedAndCultivated.find( e => r.name == e.name ).value * r.qty;
+    r.cost = rawMaterials.find( e => r.name == e.name ).value * r.qty;
     return r;
   });
 }
 
-function showMinedAndCultivatedMaterials(item){
-  displayElement(`<a name="mined_and_cultivated"></a>Mined and cultivated materials`, "h2");
+function showRawMaterials(item){
+  displayElement(`<a name="raw_materials"></a>Raw materials`, "h2");
   let transformedResources =
-      addCostToMinedAndCultivatedResources(
-        filterOnMinedAndCultivated(
+      addCostToRawMaterialsResources(
+        filterOnRawMaterials(
           aggregatedResouces(
             getSortedResources(item))));
 
@@ -976,7 +984,7 @@ function showMinedAndCultivatedMaterials(item){
     return c.cost + p;
   }, 0);
 
-  let profit =  searchForComponent(item).value - totalCost;
+  let profit = searchForComponent(item).value - totalCost;
 
   displayResourcesTable(
     transformedResources.concat(

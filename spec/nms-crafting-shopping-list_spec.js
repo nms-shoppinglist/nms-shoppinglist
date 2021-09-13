@@ -1,5 +1,5 @@
 // spec
-var it, expect, describe, searchForComponent, getComponentTree, filterOnMinedAndCultivated;
+var it, expect, describe, searchForComponent, getComponentTree, filterOnRawMaterials;
 
 describe ("NMS Crafting Shopping List", () => {
 
@@ -30,9 +30,9 @@ describe ("NMS Crafting Shopping List", () => {
       {name: "Condensed Carbon"}
     ];
 
-    describe('filterOnMinedAndCultivated', () => {
-      it('should return only mined and cultivated resources', ()=> {
-        let filtered = filterOnMinedAndCultivated(resources);
+    describe('filterOnRawMaterials', () => {
+      it('should return only raw materials', ()=> {
+        let filtered = filterOnRawMaterials(resources);
         expect(filtered).toEqual([
           {name: "Gold"},
           {name: "Carbon"},
@@ -54,31 +54,58 @@ describe ("NMS Crafting Shopping List", () => {
   });
 
   describe('getComponentTree', () => {
-    describe('build object tree', ()=> {
+    describe('building component tree', ()=> {
 
       it('should create a new object tree for the component', ()=> {
         let component = searchForComponent('Living Glass');
         let component_tree = getComponentTree(component);
 
+        expect(component).not.toBe(component_tree); // not a reference!
         expect(component_tree.name).toEqual('Living Glass');
         expect(component_tree.value).toEqual(566000);
-        expect(component).not.toBe(component_tree);
       });
 
-      it('should provide a list of craftable componentns separate from mined and cultivated materials', ()=> {
-        let component = searchForComponent('Living Glass');
+      it('should provide a list of craftable componentns separate from raw materials', ()=> {
+        let component = searchForComponent('AtlasPass v2');
         let component_tree = getComponentTree(component);
 
         expect(component_tree.craftable).toBeDefined();
-        expect(component_tree.minedAndCultivated).toBeDefined();
+        expect(component_tree.rawMaterials).toBeDefined();
 
-        expect(component_tree.craftable.map((r)=> r.name )).toEqual([
-          "Glass",
-          "Lubricant"
+        expect(component_tree.craftable.map(r => r.name )).toEqual([
+          "Microprocessor"
         ]);
 
-        expect(component_tree.minedAndCultivated.length).toEqual(0);
+        expect(component_tree.rawMaterials.map(r => r.name)).toEqual([
+          "Cadmium",
+        ]);
       });
+
+      it('should calculate the cost of craftable components', () => {
+        let component = searchForComponent('Living Glass');
+        let component_tree = getComponentTree(component);
+
+        expect(component_tree.craftable[0].name).toEqual('Glass');
+        expect(component_tree.craftable[0].qty).toEqual(5);
+        expect(component_tree.craftable[0].cost).toEqual(5 * 200);
+      });
+
+      it('should calculate the cost of raw materials', () => {
+        let component = searchForComponent('AtlasPass v2');
+        let component_tree = getComponentTree(component);
+
+        expect(component_tree.craftable[0].name).toEqual('Microprocessor');
+        expect(component_tree.craftable[0].qty).toEqual(1);
+        expect(component_tree.craftable[0].cost).toEqual(1 * 2000);
+      });
+
+      xit('should collect all craftable and raw materials required for the component', ()=> {
+        let component = searchForComponent('AtlasPass v2');
+        let component_tree = getComponentTree(component);
+
+        expect(component_tree.craftable[0].resources).toBeDefined();
+      });
+
     });
   });
 });
