@@ -901,18 +901,19 @@ function showResources(resources, table) {
   );
 }
 
-function getResources(resources, collection = []) {
-  resources?.forEach(
-    (resource) => {
-      collection.push(resource);
-      var found = searchForComponent(resource?.name);
+function showRawMaterials(item){
+  displayElement(`<a name="raw_materials"></a>Raw materials`, "h2");
+  let componentTree = buildComponentTree(item);
 
-      return getResources(found?.resources, collection);
-    }
-  );
-
-  return collection;
+  displayResourcesTable(
+    componentTree.aggregatedRawMaterials.concat(
+      [
+        {name: "<b>Total Cost</b>", qty: "", cost: `<b>${numberWithCommas(componentTree.rawMaterialsTotalCost)}</b>`},
+        {name: "<b>Profit</b>", qty: "", cost: `<b>${numberWithCommas(componentTree.profit)}</b`}
+      ]
+    ));
 }
+
 
 function buildComponentTree(componentName, root = undefined) {
   let component = searchForComponent(componentName);
@@ -926,7 +927,7 @@ function buildComponentTree(componentName, root = undefined) {
     aggregatedComponents: []
   };
 
-  if(root == undefined) root = resourceTree;
+  if(root === undefined) root = resourceTree;
 
   if(resourceTree.craftable.length > 0) {
     resourceTree.craftable.map( i => {
@@ -971,7 +972,9 @@ function buildComponentTree(componentName, root = undefined) {
       p?.push(c);
 
       return p;
-    }, []).sort(sortResources);
+    }, []).sort(
+      (a, b) => a.name < b.name ? -1 : 1
+    );
 
     root.rawMaterialsTotalCost = root.aggregatedRawMaterials.reduce((p,c) => p + c.cost, 0);
     root.profit = root.value - root.rawMaterialsTotalCost;
@@ -980,67 +983,12 @@ function buildComponentTree(componentName, root = undefined) {
   return resourceTree;
 }
 
-function sortResources(a, b) {
-  return a.name < b.name ? -1 : 1;
-}
-
-function aggregatedResouces(resources) {
-  return resources.reduce((p, c) => {
-
-    // Check for exisiting resource and add to it.
-    let i = p?.findIndex( e => e.name === c.name );
-
-    if(i > -1) {
-      p[i].qty += c.qty;
-
-      return p;
-    }
-
-    p?.push(c);
-    return p;
-  }, []);
-}
-
 function filterOnRawMaterials(resources) {
   return resources.filter( r => rawMaterials.map( e => e.name ).includes(r.name) );
 }
 
 function filterOnCraftable(resources) {
   return resources.filter( r => !rawMaterials.map( e => e.name ).includes(r.name) );
-}
-
-function getSortedResources(item) {
-  return getResources(searchForComponent(item).resources).sort(sortResources);
-}
-
-function addCostToRawMaterialsResources(resources) {
-  return resources.map( r => {
-    r.cost = rawMaterials.find( e => r.name == e.name ).value * r.qty;
-    return r;
-  });
-}
-
-function showRawMaterials(item){
-  displayElement(`<a name="raw_materials"></a>Raw materials`, "h2");
-  let transformedResources =
-      addCostToRawMaterialsResources(
-        filterOnRawMaterials(
-          aggregatedResouces(
-            getSortedResources(item))));
-
-  let totalCost = transformedResources.reduce( (p, c) => {
-    return c.cost + p;
-  }, 0);
-
-  let profit = searchForComponent(item).value - totalCost;
-
-  displayResourcesTable(
-    transformedResources.concat(
-      [
-        {name: "<b>Total Cost</b>", qty: "", cost: `<b>${numberWithCommas(totalCost)}</b>`},
-        {name: "<b>Profit</b>", qty: "", cost: `<b>${numberWithCommas(profit)}</b`}
-      ]
-    ));
 }
 
 // html helpers
@@ -1106,6 +1054,6 @@ function addTableRow(cells, table = document.getElementById("crafting")) {
   table.appendChild(tr);
 }
 
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function numberWithCommas(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
