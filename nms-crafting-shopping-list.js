@@ -853,6 +853,7 @@ function init() {
 
 function searchForComponent(item, data = craftingData) {
   var found = data.find((product, index) => product.name == item);
+
   return found;
 }
 
@@ -905,6 +906,7 @@ function getResources(resources, collection = []) {
     (resource) => {
       collection.push(resource);
       var found = searchForComponent(resource?.name);
+
       return getResources(found?.resources, collection);
     }
   );
@@ -912,24 +914,35 @@ function getResources(resources, collection = []) {
   return collection;
 }
 
-function getComponentTree(componentName) {
+function buildComponentTree(componentName, root = undefined) {
   let component = searchForComponent(componentName);
 
   let resourceTree = {
     name: component.name,
     value: component.value,
     craftable: filterOnCraftable(component.resources),
-    rawMaterials: filterOnRawMaterials(component.resources)
+    rawMaterials: filterOnRawMaterials(component.resources),
+    aggregatedRawMaterials: [],
+    aggregatedComponents: []
   };
+
+  if(root == undefined) root = resourceTree;
 
   if(resourceTree.craftable.length > 0) {
     resourceTree.craftable.map( i => {
       i.cost = i.qty * searchForComponent(i.name).value;
+
+      root.aggregatedComponents.push({
+        name: i.name,
+        cost: i.cost,
+        qty: i.qty
+      });
+
       return i;
     });
 
     resourceTree.craftable.forEach( i => {
-      let subTree = getComponentTree(i.name);
+      let subTree = buildComponentTree(i.name, root);
       i.craftable = subTree.craftable;
       i.rawMaterials = subTree.rawMaterials;
     });
@@ -938,8 +951,30 @@ function getComponentTree(componentName) {
   if(resourceTree.rawMaterials.length > 0) {
     resourceTree.rawMaterials.map( i => {
       i.cost = rawMaterials.find( e => i.name == e.name ).value * i.qty;
+
+      root.aggregatedRawMaterials.push(i);
+
       return i;
     });
+  }
+
+  if(root.name == component.name) {
+    root.aggregatedRawMaterials = root.aggregatedRawMaterials.reduce((p, c)=> {
+      let i = p?.findIndex(e => e.name === c.name);
+      if(i > -1) {
+        p[i].qty += c.qty;
+        p[i].cost += c.cost;
+
+        return p;
+      }
+
+      p?.push(c);
+
+      return p;
+    }, []).sort(sortResources);
+
+    root.rawMaterialsTotalCost = root.aggregatedRawMaterials.reduce((p,c) => p + c.cost, 0);
+    root.profit = root.value - root.rawMaterialsTotalCost;
   }
 
   return resourceTree;
@@ -957,6 +992,7 @@ function aggregatedResouces(resources) {
 
     if(i > -1) {
       p[i].qty += c.qty;
+
       return p;
     }
 
