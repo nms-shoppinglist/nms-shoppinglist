@@ -970,10 +970,6 @@ function buildComponentTree(componentName, root = undefined, quantity = 1) {
   }
 
   if(root.name == component.name) {
-
-    console.log("Call - sum of aggregated raw materials...");
-    console.log(" aggregatedRawMaterials:", JSON.stringify(root.aggregatedRawMaterials.sort(orderByName), null, 2));
-
     root.aggregatedRawMaterials = root.aggregatedRawMaterials.reduce((p, c)=> {
       let i = p?.findIndex(e => e.name === c.name);
       if(i > -1) {
