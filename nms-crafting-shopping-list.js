@@ -916,8 +916,11 @@ function showRawMaterials(item){
 
 function searchForComponent(item, data = craftingData) {
   var found = data.find((product, index) => product.name == item);
-
-  return JSON.parse(JSON.stringify(found)); // use JSON to deep copy the found component (never mutate craftingData!)
+  if (found) {
+    return JSON.parse(JSON.stringify(found)); // use JSON to deep copy the found component (never mutate craftingData!)
+  } else {
+    return undefined;
+  }
 }
 
 function buildComponentTree(componentName, root = undefined, quantity = 1) {
