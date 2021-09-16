@@ -102,7 +102,7 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
         expect(componentTree.rawMaterials[0].cost).toEqual(40 * 245);
       });
 
-      it('Should calculate aggregate raw materials for the component', ()=> {
+      it('Should aggregate raw materials for the component', ()=> {
         let component = 'AtlasPass v2';
         let componentTree = buildComponentTree(component);
 
@@ -118,6 +118,15 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
           "Chromatic Metal",
         ]);
 
+        // subcomponent qty > 1 ... Living Glass : 5x Glass + 1x Lubricant
+
+        componentTree = buildComponentTree('Living Glass');
+        expect(componentTree.aggregatedRawMaterials).toEqual([
+          { name: 'Faecium', qty: 50, cost: 1500 },
+          { name: "Frost Crystal", qty: 200, cost: 2400 },
+          { name: 'Gamma Root', qty: 400, cost: 6400 }
+        ]);
+
         // complex example... Stasis Device
 
         component = 'Stasis Device';
@@ -125,15 +134,15 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
 
         expect(componentTree.aggregatedRawMaterials).toEqual([
           {name: "Cactus Flesh", qty: 100, cost: 2800},
-          {name: "Condensed Carbon", qty: 500, cost: 12000},
+          {name: "Condensed Carbon", qty: 300, cost: 7200},
           {name: "Dioxite", qty: 50, cost: 3100},
           {name: "Faecium", qty: 50, cost: 1500},
-          {name: "Frost Crystal", qty: 140, cost: 1680},
+          {name: "Frost Crystal", qty: 300, cost: 3600},
           {name: "Gamma Root", qty: 400, cost: 6400},
           {name: "Ionised Cobalt", qty: 150, cost: 60150},
           {name: "Paraffinium", qty: 50, cost: 3100},
           {name: "Phosphorus", qty: 1, cost: 62},
-          {name: "Radon", qty: 1500, cost: 30000},
+          {name: "Radon", qty: 1000, cost: 20000},
           {name: "Solanium", qty: 200, cost: 14000},
           {name: "Star Bulb", qty: 200, cost: 6400},
           {name: "Sulphurine", qty: 500, cost: 10000}
@@ -145,8 +154,12 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
         let componentTree = buildComponentTree(component);
 
         expect(componentTree.rawMaterialsTotalCost).toEqual(
-          (7 * 50) +     // 50 x Carbon
-            (245 * 40)   // 40 x Chromatic Metal
+          // raw materials for Microprocessor...
+          // Carbon (7u x 50)
+          (7 * 50) +
+
+          // Chromatic Metal (245u x 40)
+          (245 * 40)
         );
       });
 
@@ -154,8 +167,25 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
         let component = 'Stasis Device';
         let componentTree = buildComponentTree(component);
 
-        // 15,326,628 = value - rawMaterialsTotalCost;
         expect(componentTree.profit).toEqual(componentTree.value - componentTree.rawMaterialsTotalCost);
+        expect(componentTree.profit).toEqual(15461688);
+      });
+
+      it('should calculate the cost of raw materials multiplied by the quantity of the component which requires them', () => {
+        let componentTree = buildComponentTree('Living Glass');
+
+        expect(componentTree.craftable).toContain({
+          name: 'Glass',
+          qty: 5,
+          cost: 1000,
+          craftable: [  ],
+          rawMaterials: [
+            {
+              name: 'Frost Crystal',
+              qty: 40 * 5,
+              cost: 480 * 5
+            }
+          ]});
       });
 
       it('should aggregate components..?', () => {

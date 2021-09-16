@@ -1,5 +1,5 @@
 
-var craftingData = [
+let craftingData = [
   {
     name:"Stasis Device",
     value: 15600000,
@@ -839,29 +839,27 @@ let rawMaterials = [
 ];
 
 function init() {
-  let params = new URL(document.location).searchParams;
-  let item = params.get("item");
+  let item = itemNameFromParams();
 
   if (searchForComponent(item)) {
     shoppingList(item);
   } else {
-    index();
+    indexPage();
   }
 }
 
-// data logic
+// routing logic
 
-function searchForComponent(item, data = craftingData) {
-  var found = data.find((product, index) => product.name == item);
-
-  return found;
+function itemNameFromParams() {
+  let params = new URL(document.location).searchParams;
+  return params.get("item");
 }
 
 // Presentation section:
 
 // Pages
 
-function index(data = craftingData) {
+function indexPage(data = craftingData) {
   var headings = ["<b>Item</b>", "<b>Value</b>"];
   addTableHeading(headings);
 
@@ -914,8 +912,15 @@ function showRawMaterials(item){
     ));
 }
 
+// Data functions...
 
-function buildComponentTree(componentName, root = undefined) {
+function searchForComponent(item, data = craftingData) {
+  var found = data.find((product, index) => product.name == item);
+
+  return JSON.parse(JSON.stringify(found)); // use JSON to deep copy the found component (never mutate craftingData!)
+}
+
+function buildComponentTree(componentName, root = undefined, quantity = 1) {
   let component = searchForComponent(componentName);
 
   let resourceTree = {
@@ -943,7 +948,7 @@ function buildComponentTree(componentName, root = undefined) {
     });
 
     resourceTree.craftable.forEach( i => {
-      let subTree = buildComponentTree(i.name, root);
+      let subTree = buildComponentTree(i.name, root, i.qty);
       i.craftable = subTree.craftable;
       i.rawMaterials = subTree.rawMaterials;
     });
@@ -951,15 +956,24 @@ function buildComponentTree(componentName, root = undefined) {
 
   if(resourceTree.rawMaterials.length > 0) {
     resourceTree.rawMaterials.map( i => {
+      i.qty *= quantity;
       i.cost = rawMaterials.find( e => i.name == e.name ).value * i.qty;
 
-      root.aggregatedRawMaterials.push(i);
+      root.aggregatedRawMaterials.push({
+        name: i.name,
+        qty: i.qty,
+        cost: i.cost
+      });
 
       return i;
     });
   }
 
   if(root.name == component.name) {
+
+    console.log("Call - sum of aggregated raw materials...");
+    console.log(" aggregatedRawMaterials:", JSON.stringify(root.aggregatedRawMaterials.sort(orderByName), null, 2));
+
     root.aggregatedRawMaterials = root.aggregatedRawMaterials.reduce((p, c)=> {
       let i = p?.findIndex(e => e.name === c.name);
       if(i > -1) {
@@ -972,9 +986,7 @@ function buildComponentTree(componentName, root = undefined) {
       p?.push(c);
 
       return p;
-    }, []).sort(
-      (a, b) => a.name < b.name ? -1 : 1
-    );
+    }, []).sort(orderByName);
 
     root.rawMaterialsTotalCost = root.aggregatedRawMaterials.reduce((p,c) => p + c.cost, 0);
     root.profit = root.value - root.rawMaterialsTotalCost;
@@ -989,6 +1001,10 @@ function filterOnRawMaterials(resources) {
 
 function filterOnCraftable(resources) {
   return resources.filter( r => !rawMaterials.map( e => e.name ).includes(r.name) );
+}
+
+function orderByName(a, b) {
+  return a.name > b.name ? 1 : -1;
 }
 
 // html helpers
