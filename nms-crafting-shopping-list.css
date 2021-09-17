@@ -1,5 +1,4 @@
-p.units {
-  display: table-cell;
+.units {
   vertical-align: bottom;
   text-align: center;
   background-color: black;
@@ -8,9 +7,20 @@ p.units {
   background-image: url('units.png');
   background-size: contain;
   background-repeat: no-repeat;
+  margin-right: 0.5em;
   padding: 1em;
   padding-left: 3em;
   font-size: 8pt;
+}
+
+.component-value {
+  background-color: black;
+}
+.component-profit {
+  background-color: green;
+}
+.component-cost {
+  background-color: red;
 }
 
 body {

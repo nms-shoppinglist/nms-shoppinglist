@@ -871,15 +871,24 @@ function indexPage(data = craftingData) {
 }
 
 function shoppingList(item) {
-  var found = searchForComponent(item);
-  displayElement(`${item}`, "h1");
-  displayElement(`${numberWithCommas(found.value)}`, "p.units");
-  if(filterOnCraftable(found.resources).length > 0) {
+  var component = buildComponentTree(item);
+  var head = `
+<h1>${component.name}</h1>
+<p class="component-value units">value ${numberWithCommas(component.value)}
+<p class="component-profit units">profit ${numberWithCommas(component.profit)}
+<p class="component-cost units">cost ${numberWithCommas(component.rawMaterialsTotalCost)}
+<p>
+  <em>After harvesting the <a href="#raw_materials">raw materials</a>, craft components in the order listed.</em>
+</p>
+  `;
+  displayTemplate(head);
+
+  if(component.craftable.length > 0) {
     displayElement("Craftable Components", "h2");
 
     // Craftable shopping list...
     let componentTable = displayResourcesTable(null, document.body, ["Component", "Quantity", "Cost"]);
-    showResources(found.resources, componentTable);
+    showResources(component.aggregatedComponents, componentTable);
   }
   displayElement(`<a name="raw_materials"></a>`);
 
@@ -889,11 +898,8 @@ function shoppingList(item) {
 function showResources(resources, table) {
   resources.forEach(
     (resource) => {
-      var found = searchForComponent(resource.name);
-      if(found) {
-        let value = searchForComponent(resource.name)?.value;
-        addTableRow([`<a href="/?item=${resource.name}">${resource.name}</a>`, resource.qty, numberWithCommas(value)], table);
-        showResources(found.resources, table);
+      if(resource) {
+        addTableRow([`<a href="/?item=${resource.name}">${resource.name}</a>`, resource.qty, numberWithCommas(resource.cost)], table);
       };
     }
   );
@@ -939,11 +945,13 @@ function buildComponentTree(componentName, root = undefined, quantity = 1) {
 
   if(resourceTree.craftable.length > 0) {
     resourceTree.craftable.map( i => {
-      i.cost = i.qty * searchForComponent(i.name).value;
+      i.value = searchForComponent(i.name).value;
+      i.cost = i.qty * i.value;
 
       root.aggregatedComponents.push({
         name: i.name,
         cost: i.cost,
+        value: i.value,
         qty: i.qty
       });
 
@@ -959,13 +967,15 @@ function buildComponentTree(componentName, root = undefined, quantity = 1) {
 
   if(resourceTree.rawMaterials.length > 0) {
     resourceTree.rawMaterials.map( i => {
+      i.value = rawMaterials.find( e => i.name == e.name ).value;
       i.qty *= quantity;
-      i.cost = rawMaterials.find( e => i.name == e.name ).value * i.qty;
+      i.cost = i.value  * i.qty;
 
       root.aggregatedRawMaterials.push({
         name: i.name,
         qty: i.qty,
-        cost: i.cost
+        cost: i.cost,
+        value: i.value
       });
 
       return i;
@@ -973,7 +983,18 @@ function buildComponentTree(componentName, root = undefined, quantity = 1) {
   }
 
   if(root.name == component.name) {
-    root.aggregatedRawMaterials = root.aggregatedRawMaterials.reduce((p, c)=> {
+    root.aggregatedComponents = root.aggregatedComponents.reduce(reduceOnName, []).reverse();
+    root.aggregatedRawMaterials = root.aggregatedRawMaterials.reduce(reduceOnName, []).sort(orderByName);
+    root.rawMaterialsTotalCost = root.aggregatedRawMaterials.reduce((p,c) => p + c.cost, 0);
+
+    root.profit = root.value - root.rawMaterialsTotalCost;
+  }
+
+  return resourceTree;
+}
+
+function reduceOnName(p, c) {
+
       let i = p?.findIndex(e => e.name === c.name);
       if(i > -1) {
         p[i].qty += c.qty;
@@ -985,13 +1006,6 @@ function buildComponentTree(componentName, root = undefined, quantity = 1) {
       p?.push(c);
 
       return p;
-    }, []).sort(orderByName);
-
-    root.rawMaterialsTotalCost = root.aggregatedRawMaterials.reduce((p,c) => p + c.cost, 0);
-    root.profit = root.value - root.rawMaterialsTotalCost;
-  }
-
-  return resourceTree;
 }
 
 function filterOnRawMaterials(resources) {
@@ -1006,7 +1020,18 @@ function orderByName(a, b) {
   return a.name > b.name ? 1 : -1;
 }
 
+function orderByValue(a, b) {
+  return a.value > b.value ? 1 : -1;
+}
+
+function orderByCost(a, b) {
+  return a.cost > b.cost ? 1 : -1;
+}
+
 // html helpers
+function displayTemplate(template, container = document.body) {
+  container.innerHTML += template;
+}
 
 function displayElement(text, htmlElementName = "p", container = document.body) {
   var className;

@@ -109,7 +109,8 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
         expect(Object.keys(componentTree.aggregatedRawMaterials[0])).toEqual([
           "name",
           "qty",
-          "cost"
+          "cost",
+          "value"
         ]);
 
         expect(componentTree.aggregatedRawMaterials.map( i => i.name )).toEqual([
@@ -122,9 +123,9 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
 
         componentTree = buildComponentTree('Living Glass');
         expect(componentTree.aggregatedRawMaterials).toEqual([
-          { name: 'Faecium', qty: 50, cost: 1500 },
-          { name: "Frost Crystal", qty: 200, cost: 2400 },
-          { name: 'Gamma Root', qty: 400, cost: 6400 }
+          { name: 'Faecium', qty: 50, cost: 1500, value: 30 },
+          { name: "Frost Crystal", qty: 200, cost: 2400, value: 12 },
+          { name: 'Gamma Root', qty: 400, cost: 6400, value: 16 }
         ]);
 
         // complex example... Stasis Device
@@ -133,19 +134,19 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
         componentTree = buildComponentTree(component);
 
         expect(componentTree.aggregatedRawMaterials).toEqual([
-          {name: "Cactus Flesh", qty: 100, cost: 2800},
-          {name: "Condensed Carbon", qty: 300, cost: 7200},
-          {name: "Dioxite", qty: 50, cost: 3100},
-          {name: "Faecium", qty: 50, cost: 1500},
-          {name: "Frost Crystal", qty: 300, cost: 3600},
-          {name: "Gamma Root", qty: 400, cost: 6400},
-          {name: "Ionised Cobalt", qty: 150, cost: 60150},
-          {name: "Paraffinium", qty: 50, cost: 3100},
-          {name: "Phosphorus", qty: 1, cost: 62},
-          {name: "Radon", qty: 1000, cost: 20000},
-          {name: "Solanium", qty: 200, cost: 14000},
-          {name: "Star Bulb", qty: 200, cost: 6400},
-          {name: "Sulphurine", qty: 500, cost: 10000}
+          { name: "Cactus Flesh", qty: 100, cost: 2800, value: 28 },
+          { name: "Condensed Carbon", qty: 300, cost: 7200, value: 24 },
+          { name: "Dioxite", qty: 50, cost: 3100, value: 62 },
+          { name: "Faecium", qty: 50, cost: 1500, value: 30 },
+          { name: "Frost Crystal", qty: 300, cost: 3600, value: 12 },
+          { name: "Gamma Root", qty: 400, cost: 6400, value: 16 },
+          { name: "Ionised Cobalt", qty: 150, cost: 60150, value: 401 },
+          { name: "Paraffinium", qty: 50, cost: 3100, value: 62 },
+          { name: "Phosphorus", qty: 1, cost: 62, value: 62 },
+          { name: "Radon", qty: 1000, cost: 20000, value: 20 },
+          { name: "Solanium", qty: 200, cost: 14000, value: 70 },
+          { name: "Star Bulb", qty: 200, cost: 6400, value: 32 },
+          { name: "Sulphurine", qty: 500, cost: 10000, value: 20 }
         ]);
       });
 
@@ -178,26 +179,49 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
           name: 'Glass',
           qty: 5,
           cost: 1000,
+          value: 200,
           craftable: [  ],
           rawMaterials: [
             {
               name: 'Frost Crystal',
-              qty: 40 * 5,
-              cost: 480 * 5
+              qty: 200,
+              cost: 2400,
+              value: 12
             }
           ]});
       });
 
-      it('should aggregate components..?', () => {
-        let component = 'Stasis Device';
-        let componentTree = buildComponentTree(component);
+      describe('aggregating components', () => {
 
-        expect(componentTree.aggregatedComponents.length).toEqual(22);
-        expect(componentTree.aggregatedComponents[0]).toEqual({
-          name: "Quantum Processor",
-          cost: 5200000,
-          qty: 1
+        it('should aggregate components', () => {
+          let component = 'Stasis Device';
+          let componentTree = buildComponentTree(component);
+
+          let subject = componentTree.aggregatedComponents;
+
+          expect(subject.length).toEqual(19);
+          expect(subject[subject.length - 1]).toEqual({
+            name: "Quantum Processor",
+            cost: 5200000,
+            value: 5200000,
+            qty: 1
+          });
         });
+
+        it('should should reduce duplicates to one component, combining cost', () => {
+          let componentTree = buildComponentTree('Stasis Device');
+
+          let subject = componentTree.aggregatedComponents;
+          let thermicCondensate = subject.filter( i => i.name == 'Thermic Condensate');
+
+          expect(thermicCondensate.length).toEqual(1);
+
+          let tc = thermicCondensate[0];
+
+          expect(tc.qty).toEqual(2);
+          expect(tc.cost).toEqual(tc.value * tc.qty);
+        });
+
       });
 
       example('validate componentTree for AtlasPass v2', ()=> {
@@ -211,37 +235,42 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
           profit: -55094,
           aggregatedComponents: [
             {
-              name: "Microprocessor",
-              cost: 2000,
+              name: "Carbon Nanotubes",
+              cost: 500,
+              value: 500,
               qty: 1
             },
             {
-              name: "Carbon Nanotubes",
-              cost: 500,
+              name: "Microprocessor",
+              cost: 2000,
+              value: 2000,
               qty: 1
             }
           ],
           aggregatedRawMaterials: [
-            {name: "Cadmium", qty: 200, cost: 46800},
-            {name: "Carbon", qty: 50, cost: 350},
-            {name: "Chromatic Metal", qty: 40, cost: 9800},
+            {name: "Cadmium", qty: 200, cost: 46800, value: 234},
+            {name: "Carbon", qty: 50, cost: 350, value: 7},
+            {name: "Chromatic Metal", qty: 40, cost: 9800, value: 245},
           ],
           craftable: [
             {
               name: "Microprocessor",
               qty: 1,
               cost: 2000,
+              value: 2000,
               craftable: [
                 {
                   name: "Carbon Nanotubes",
                   qty: 1,
                   cost: 500,
+                  value: 500,
                   craftable: [],
                   rawMaterials: [
                     {
                       name: "Carbon",
                       qty: 50,
-                      cost: 7 * 50
+                      cost: 350,
+                      value: 7
                     }
                   ]
                 }
@@ -250,7 +279,8 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
                 {
                   name: "Chromatic Metal",
                   qty: 40,
-                  cost: 40 * 245
+                  value: 245,
+                  cost: 9800
                 }
               ]
             }
@@ -259,7 +289,8 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
             {
               name: "Cadmium",
               qty: 200,
-              cost: 200 * 234
+              cost: 46800,
+              value: 234
             }
           ]
         };
