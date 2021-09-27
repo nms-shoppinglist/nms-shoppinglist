@@ -1039,11 +1039,16 @@ function displayTemplate(template, container = document.body) {
 }
 
 function displayElement(text, htmlElementName = "p", container = document.body) {
-
+  var element;
   let tagAndID = htmlElementName.split('#');
   let tagAndClassNames = tagAndID[0].split(".");
 
-  var element = document.createElement(tagAndClassNames.shift());
+  if(tagAndClassNames[0] && tagAndClassNames[0] != '') {
+     element = document.createElement(tagAndClassNames.shift());
+  } else {
+    element = document.createElement('div');
+  }
+
   element.innerHTML = text;
 
   if(tagAndClassNames.length > 0) {
@@ -1128,7 +1133,7 @@ function generateNodeNames(itemName) {
   return graph.flat(2);
 }
 
-function generateNodeList(itemName, nodeStyle = '[shape="box"]') {
+function generateNodeList(itemName, nodeStyle = '[shape = box]') {
   let nodes =  generateNodeNames(itemName).map( n => `"${n}" ${nodeStyle}`);
   return nodes.join("\n");
 }
@@ -1139,9 +1144,9 @@ function generateDotGraph(itemName) {
 
   return `
     digraph  {
-      graph [fontname = "helvetica", splines="ortho"];
-      node [fontname = "helvetica", style="rounded"];
-      edge [fontname = "helvetica", penwidth=1];
+      graph [fontname = helvetica, splines = ortho ];
+      node [fontname = helvetica];
+      edge [fontname = helvetica, penwidth = 1, arrowhead = none, arrowtail = normal, dir = both, arrowsize = 0.6 ];
 
       ${nodeList}
 
@@ -1151,11 +1156,28 @@ function generateDotGraph(itemName) {
 
 }
 
+function scaleGraphUp() {
+  let graph = document.getElementById('svg_graph');
+  graph.currentScale += 0.02;
+}
+
+function scaleGraphDown() {
+  let graph = document.getElementById('svg_graph');
+  graph.currentScale -= 0.02;
+}
+
 function renderDotGraph(itemName) {
-  var viz = new Viz();
+  let viz = new Viz();
+
+  let scaleUp = displayElement('+', '#scaleUp');
+  scaleUp.onclick = scaleGraphUp;
+
+  let scaleDown = displayElement('-', '#scaleDown');
+  scaleDown.onclick = scaleGraphDown;
 
   viz.renderSVGElement(generateDotGraph(itemName))
     .then(function(element) {
+      element.id = 'svg_graph';
       document.body.appendChild(element);
     })
     .catch(error => {
