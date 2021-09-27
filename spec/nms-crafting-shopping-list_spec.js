@@ -3,9 +3,82 @@ var it, expect, describe, searchForComponent, buildComponentTree, filterOnRawMat
 
 let example = it;
 
-describe ("No Man's Sky - Crafting Shopping List", () => {
+describe ("No Man's Sky - Crafting Shopping List", ()=> {
 
-  describe('searchForComponent', () => {
+  describe('HTML helpers', ()=> {
+
+    describe('displayElement', ()=> {
+
+      it('displays an html element containing text/innerHTML', ()=> {
+        let element = displayElement("Hello world");
+
+        expect(element.innerHTML).toEqual('Hello world');
+        expect(element.textContent).toEqual('Hello world');
+
+        element.remove();
+      });
+
+      it('generates css classname from haml/slim style syntax', ()=> {
+        let element = displayElement("Div with css class 'hello'", "div.hello.world");
+
+        expect(element.tagName).toEqual('DIV');
+        expect(element.className).toEqual('hello world');
+        expect(element.id).toEqual('');
+
+        element.remove();
+      });
+
+      it('generates tag name from haml/slim style syntax', ()=> {
+        let element = displayElement("Div with css class 'hello'", "div.hello");
+
+        expect(element.tagName).toEqual('DIV');
+        expect(element.id).toEqual('');
+
+        element.remove();
+      });
+
+      it('generates id from haml/slim style syntax', ()=> {
+        let element = displayElement("Div with css class 'hello'", "div.hello#hello_div");
+
+        expect(element.tagName).toEqual('DIV');
+        expect(element.className).toEqual('hello');
+        expect(element.id).toEqual('hello_div');
+
+        element.remove();
+      });
+
+    });
+
+  });
+
+  describe('Graphviz features', ()=> {
+
+    it('generates digraph of resources from item name', ()=> {
+      let subject = generateDigraph('AtlasPass v2');
+      expect(subject).toEqual(`"AtlasPass v2" -> "Cadmium" "AtlasPass v2" -> "Microprocessor" "Microprocessor" -> "Chromatic Metal" "Microprocessor" -> "Carbon Nanotubes" "Carbon Nanotubes" -> "Carbon" `);
+    });
+
+    it('generates an array of node names', ()=> {
+      let subject = generateNodeNames('AtlasPass v2');
+      expect(subject).toEqual([
+        'AtlasPass v2',
+        'Cadmium',
+        'Microprocessor',
+        'Chromatic Metal',
+        'Carbon Nanotubes',
+        'Carbon',
+      ]);
+    });
+
+    it('generates a node list', ()=> {
+      let subject = generateNodeList('AtlasPass v2', '[shape="box"]');
+
+      expect(subject).toEqual(`"AtlasPass v2" [shape="box"]\n"Cadmium" [shape="box"]\n"Microprocessor" [shape="box"]\n"Chromatic Metal" [shape="box"]\n"Carbon Nanotubes" [shape="box"]\n"Carbon" [shape="box"]`);
+    });
+
+  });
+
+  describe('searchForComponent', ()=> {
 
     let stasisDevice = searchForComponent('Stasis Device');
     it('should find a component by name, in the crafting data', ()=> {
@@ -32,7 +105,7 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
       {name: "Chromatic Metal"}
     ];
 
-    describe('filterOnRawMaterials', () => {
+    describe('filterOnRawMaterials', ()=> {
       it('should return only raw materials', ()=> {
         let filtered = filterOnRawMaterials(resources);
         expect(filtered).toEqual([
@@ -44,8 +117,8 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
       });
     });
 
-    describe('filterOnCraftable', () => {
-     it('should return only craftable resources', ()=> {
+    describe('filterOnCraftable', ()=> {
+      it('should return only craftable resources', ()=> {
         let filtered = filterOnCraftable(resources);
         expect(filtered).toEqual([
           {name: "Statis Device"},
@@ -53,10 +126,10 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
           {name: "Lubricant"}
         ]);
       });
-     });
+    });
   });
 
-  describe('buildComponentTree', () => {
+  describe('buildComponentTree', ()=> {
     describe('building component tree', ()=> {
 
       it('should create a new object tree for the component', ()=> {
@@ -84,7 +157,7 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
         ]);
       });
 
-      it('should calculate the cost of craftable components', () => {
+      it('should calculate the cost of craftable components', ()=> {
         let component = 'Living Glass';
         let componentTree = buildComponentTree(component);
 
@@ -93,7 +166,7 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
         expect(componentTree.craftable[0].cost).toEqual(5 * 200);
       });
 
-      it('should calculate the cost of raw materials', () => {
+      it('should calculate the cost of raw materials', ()=> {
         let component = 'Microprocessor';
         let componentTree = buildComponentTree(component);
 
@@ -172,7 +245,7 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
         expect(componentTree.profit).toEqual(15461688);
       });
 
-      it('should calculate the cost of raw materials multiplied by the quantity of the component which requires them', () => {
+      it('should calculate the cost of raw materials multiplied by the quantity of the component which requires them', ()=> {
         let componentTree = buildComponentTree('Living Glass');
 
         expect(componentTree.craftable).toContain({
@@ -191,9 +264,9 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
           ]});
       });
 
-      describe('aggregating components', () => {
+      describe('aggregating components', ()=> {
 
-        it('should aggregate components', () => {
+        it('should aggregate components', ()=> {
           let component = 'Stasis Device';
           let componentTree = buildComponentTree(component);
 
@@ -208,7 +281,7 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
           });
         });
 
-        it('should should reduce duplicates to one component, combining cost', () => {
+        it('should should reduce duplicates to one component, combining cost', ()=> {
           let componentTree = buildComponentTree('Stasis Device');
 
           let subject = componentTree.aggregatedComponents;

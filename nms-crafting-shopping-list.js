@@ -860,13 +860,15 @@ function itemNameFromParams() {
 // Pages
 
 function indexPage(data = craftingData) {
+  let table = displayElement('', 'table');
+
   var headings = ["<b>Item</b>", "<b>Value</b>"];
-  addTableHeading(headings);
+  addTableHeading(headings, table);
 
   data.forEach( row => {
     var {name, value} = row;
     var cells = [`<a href="/?item=${name}">${name}</a>`, numberWithCommas(value)];
-    addTableRow(cells);
+    addTableRow(cells, table);
   });
 }
 
@@ -878,7 +880,7 @@ function shoppingList(item) {
 <p class="component-profit units">profit ${numberWithCommas(component.profit)}
 <p class="component-cost units">cost ${numberWithCommas(component.rawMaterialsTotalCost)}
 <p>
-  <em>After harvesting the <a href="#raw_materials">raw materials</a>, craft components in the order listed.</em>
+  <em>After harvesting the <a href="#raw_materials">raw materials</a>, craft components in the order listed. See the <a href="#graph">construction overview</a> for a visualisation of the component resources</em>
 </p>
   `;
   displayTemplate(head);
@@ -890,9 +892,14 @@ function shoppingList(item) {
     let componentTable = displayResourcesTable(null, document.body, ["Component", "Quantity", "Cost"]);
     showResources(component.aggregatedComponents, componentTable);
   }
+
   displayElement(`<a name="raw_materials"></a>`);
 
   showRawMaterials(item);
+
+  displayElement("Construction Overview", "h1#graph");
+
+  renderDotGraph(item);
 }
 
 function showResources(resources, table) {
@@ -995,17 +1002,17 @@ function buildComponentTree(componentName, root = undefined, quantity = 1) {
 
 function reduceOnName(p, c) {
 
-      let i = p?.findIndex(e => e.name === c.name);
-      if(i > -1) {
-        p[i].qty += c.qty;
-        p[i].cost += c.cost;
+  let i = p?.findIndex(e => e.name === c.name);
+  if(i > -1) {
+    p[i].qty += c.qty;
+    p[i].cost += c.cost;
 
-        return p;
-      }
+    return p;
+  }
 
-      p?.push(c);
+  p?.push(c);
 
-      return p;
+  return p;
 }
 
 function filterOnRawMaterials(resources) {
@@ -1034,19 +1041,19 @@ function displayTemplate(template, container = document.body) {
 }
 
 function displayElement(text, htmlElementName = "p", container = document.body) {
-  var className;
 
-  if(htmlElementName.includes('.')) {
-    let elementParts = htmlElementName.split(".");
-    htmlElementName = elementParts[0];
-    className = elementParts[1];
-  }
+  let tagAndID = htmlElementName.split('#');
+  let tagAndClassNames = tagAndID[0].split(".");
 
-  var element = document.createElement(htmlElementName);
+  var element = document.createElement(tagAndClassNames.shift());
   element.innerHTML = text;
 
-  if (className !== undefined) {
-    element.className = className;
+  if(tagAndClassNames.length > 0) {
+    element.className = tagAndClassNames.join(' ');
+  }
+
+  if (tagAndID[1]) {
+    element.id = tagAndID[1];
   }
 
   container.appendChild(element);
@@ -1068,7 +1075,7 @@ function displayResourcesTable(items, container = document.body, headings = ["Co
   return table;
 }
 
-function addTableHeading(cells, table = document.getElementById("crafting")) {
+function addTableHeading(cells, table) {
   var thead = document.createElement("thead");
   var tr = document.createElement("tr");
 
@@ -1082,7 +1089,7 @@ function addTableHeading(cells, table = document.getElementById("crafting")) {
   table.appendChild(thead);
 }
 
-function addTableRow(cells, table = document.getElementById("crafting")) {
+function addTableRow(cells, table) {
   var tr = document.createElement("tr");
 
   cells.forEach((c) => {
@@ -1096,4 +1103,68 @@ function addTableRow(cells, table = document.getElementById("crafting")) {
 
 function numberWithCommas(n) {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// graphing... generate graphviz directed graph
+
+function generateDigraph(itemName) {
+  let item = searchForComponent(itemName);
+
+  if (item) {
+    let graph = item.resources?.map( i => `"${itemName}" -> "${i.name}"` ).flat();
+    graph.push( item.resources?.map(i => generateDigraph(i.name) ).flat());
+    return graph.join(' ').replace(",","");
+  }
+
+  return undefined;
+}
+
+function generateNodeNames(itemName) {
+  let item = searchForComponent(itemName);
+  let graph = [itemName];
+
+  if (item) {
+    graph.push( item.resources.map(i => generateNodeNames(i.name) ));
+  }
+
+  return graph.flat(2);
+}
+
+function generateNodeList(itemName, nodeStyle = '[shape="box"]') {
+  let nodes =  generateNodeNames(itemName).map( n => `"${n}" ${nodeStyle}`);
+  return nodes.join("\n");
+}
+
+function generateDotGraph(itemName) {
+  let digraph = generateDigraph(itemName);
+  let nodeList = generateNodeList(itemName);
+
+  return `
+    digraph  {
+      graph [fontname = "helvetica", splines="ortho"];
+      node [fontname = "helvetica", style="rounded"];
+      edge [fontname = "helvetica", penwidth=1];
+
+      ${nodeList}
+
+      ${digraph.trim()}
+    }
+  `;
+
+}
+
+function renderDotGraph(itemName) {
+  var viz = new Viz();
+
+  viz.renderSVGElement(generateDotGraph(itemName))
+    .then(function(element) {
+      document.body.appendChild(element);
+    })
+    .catch(error => {
+      // Create a new Viz instance (@see Caveats page for more info)
+      viz = new Viz();
+
+      // Possibly display the error
+      console.error(error);
+    });
 }
