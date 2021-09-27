@@ -894,10 +894,11 @@ function shoppingList(item) {
   }
 
   displayElement(`<a name="raw_materials"></a>`);
+  displayElement(`<a name="raw_materials"></a>Raw materials`, "h2");
 
   showRawMaterials(item);
 
-  displayElement("Construction Overview", "h1#graph");
+  displayElement("Construction Overview", "h2#graph");
 
   renderDotGraph(item);
 }
@@ -913,7 +914,6 @@ function showResources(resources, table) {
 }
 
 function showRawMaterials(item){
-  displayElement(`<a name="raw_materials"></a>Raw materials`, "h2");
   let componentTree = buildComponentTree(item);
 
   displayResourcesTable(
