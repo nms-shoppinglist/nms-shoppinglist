@@ -84,9 +84,13 @@ tr:nth-child(odd) {
   background-color: rgba(0,60,100,0.1);
 }
 
-
-td:last-child {
+th:last-child, th:nth-child(2),
+td:last-child, td:nth-child(2)  {
   text-align: right;
+}
+
+th:first-child, td:first-child {
+  text-align: left;
 }
 
 a, a:visited {
