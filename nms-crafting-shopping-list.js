@@ -895,11 +895,9 @@ function shoppingList(item) {
 
   displayElement(`<a name="raw_materials"></a>`);
   displayElement(`<a name="raw_materials"></a>Raw materials`, "h2");
-
   showRawMaterials(item);
 
   displayElement("Construction Overview", "h2#graph");
-
   renderDotGraph(item);
 }
 
