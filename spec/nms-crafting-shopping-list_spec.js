@@ -55,8 +55,15 @@ describe ("No Man's Sky - Crafting Shopping List", ()=> {
 
     it('generates digraph of resources from item name', ()=> {
       let subject = generateDigraph('AtlasPass v2');
-      expect(subject).toEqual(`"AtlasPass v2" -> "Cadmium" "AtlasPass v2" -> "Microprocessor" "Microprocessor" -> "Chromatic Metal" "Microprocessor" -> "Carbon Nanotubes" "Carbon Nanotubes" -> "Carbon" `);
+      expect(subject).toEqual(`"AtlasPass v2" -> "Cadmium" "AtlasPass v2" -> "Microprocessor" "Microprocessor" -> "Chromatic Metal" "Microprocessor" -> "Carbon Nanotubes" "Carbon Nanotubes" -> "Carbon"`);
     });
+
+    // Bug Solar Mirror (etc) - fixed
+    it('generates the digraph for Solar Mirror', ()=> {
+      let subject = generateDigraph('Solar Mirror');
+      expect(subject).toEqual(`"Solar Mirror" -> "Gold" "Solar Mirror" -> "Silver" "Solar Mirror" -> "Chromatic Metal"`);
+    });
+
 
     it('generates an array of node names', ()=> {
       let subject = generateNodeNames('AtlasPass v2');

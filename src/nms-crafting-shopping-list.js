@@ -1109,9 +1109,9 @@ function generateDigraph(itemName) {
   let item = searchForComponent(itemName);
 
   if (item) {
-    let graph = item.resources?.map( i => `"${itemName}" -> "${i.name}"` ).flat();
-    graph.push( item.resources?.map(i => generateDigraph(i.name) ).flat());
-    return graph.join(' ').replace(",","");
+    let graph = item.resources?.map( i => `"${itemName}" -> "${i.name}"` ).flat(2);
+    graph.push( item.resources?.map(i => generateDigraph(i.name) ).flat(2));
+    return graph.join(' ').replaceAll(",","").trim();
   }
 
   return undefined;
