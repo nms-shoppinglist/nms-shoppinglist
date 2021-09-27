@@ -461,6 +461,16 @@ let craftingData = [
     ]
   },
   {
+    name: "Metal Plating",
+    value: 800,
+    resources: [
+      {
+        name: "Ferrite Dust",
+        qty: 50
+      }
+    ]
+  },
+  {
     name: "Amino Chamber",
     value: 12300,
     resources: [
