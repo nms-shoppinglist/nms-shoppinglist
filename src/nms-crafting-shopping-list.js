@@ -1,709 +1,709 @@
 
 let craftingData = [
   {
-    name:"Stasis Device",
+    name:'Stasis Device',
     value: 15600000,
     resources: [
       {
-        name:"Quantum Processor",
+        name:'Quantum Processor',
         qty: 1
       },
       {
-        name:"Cryogenic Chamber",
+        name:'Cryogenic Chamber',
         qty: 1
       },
       {
-        name: "Iridesite",
+        name: 'Iridesite',
         qty: 1
       }
     ]
   },
   {
-    name: "Fusion Ignitor",
+    name: 'Fusion Ignitor',
     value: 15600000,
     resources: [
       {
-        name: "Quantum Processor",
+        name: 'Quantum Processor',
         qty: 1
       },
       {
-        name: "Portable Reactor",
+        name: 'Portable Reactor',
         qty: 1
       },
       {
-        name: "Geodesite",
+        name: 'Geodesite',
         qty: 1
       }
     ]
   },
   {
-    name: "Quantum Processor",
+    name: 'Quantum Processor',
     value: 5200000,
     resources: [
       {
-        name: "Circuit Board",
+        name: 'Circuit Board',
         qty: 1
       },
       {
-        name: "Superconductor",
+        name: 'Superconductor',
         qty: 1
       }
     ]
   },
   {
-    name: "Portable Reactor",
+    name: 'Portable Reactor',
     value: 4200000,
     resources: [
       {
-        name: "Liquid Explosive",
+        name: 'Liquid Explosive',
         qty: 1
       },
       {
-        name: "Fusion Accelerant",
+        name: 'Fusion Accelerant',
         qty: 1
       }
     ]
   },
   {
-    name: "Cryogenic Chamber",
+    name: 'Cryogenic Chamber',
     value: 3800000,
     resources: [
       {
-        name: "Living Glass",
+        name: 'Living Glass',
         qty: 1
       },
       {
-        name: "Cryo-Pump",
+        name: 'Cryo-Pump',
         qty: 1
       }
     ]
   },
   {
-    name: "Superconductor",
+    name: 'Superconductor',
     value: 2000000,
     resources: [
       {
-        name: "Semiconductor",
+        name: 'Semiconductor',
         qty: 1
       },
       {
-        name: "Enriched Carbon",
+        name: 'Enriched Carbon',
         qty: 1
       }
     ]
   },
   {
-    name: "Cryo-Pump",
+    name: 'Cryo-Pump',
     value: 1500000,
     resources: [
       {
-        name: "Thermic Condensate",
+        name: 'Thermic Condensate',
         qty: 1
       },
       {
-        name: "Hot Ice",
+        name: 'Hot Ice',
         qty: 1
       }
     ]
   },
   {
-    name: "Fusion Accelerant",
+    name: 'Fusion Accelerant',
     value: 1500000,
     resources: [
       {
-        name: "Organic Catalyst",
+        name: 'Organic Catalyst',
         qty: 1
       },
       {
-        name: "Nitrogen Salt",
+        name: 'Nitrogen Salt',
         qty: 1
       }
     ]
   },
   {
-    name: "Circuit Board",
+    name: 'Circuit Board',
     value: 916250,
     resources: [
       {
-        name: "Poly Fibre",
+        name: 'Poly Fibre',
         qty: 1
       },
       {
-        name: "Heat Capacitor",
+        name: 'Heat Capacitor',
         qty: 1
       }
     ]
   },
   {
-    name: "Liquid Explosive",
+    name: 'Liquid Explosive',
     value: 800500,
     resources: [
       {
-        name: "Acid",
+        name: 'Acid',
         qty: 1
       },
       {
-        name: "Unstable Gel",
+        name: 'Unstable Gel',
         qty: 1
       }
     ]
   },
   {
-    name: "Living Glass",
+    name: 'Living Glass',
     value: 566000,
     resources: [
       {
-        name: "Glass",
+        name: 'Glass',
         qty: 5
       },
       {
-        name: "Lubricant",
+        name: 'Lubricant',
         qty: 1
       }
     ]
   },
   {
-    name: "Semiconductor",
+    name: 'Semiconductor',
     value: 400000,
     resources: [
       {
-        name: "Nitrogen Salt",
+        name: 'Nitrogen Salt',
         qty: 1
       },
       {
-        name: "Thermic Condensate",
+        name: 'Thermic Condensate',
         qty: 1
       }
     ]
   },
   {
-    name: "Hot Ice",
+    name: 'Hot Ice',
     value: 400000,
     resources: [
       {
-        name: "Enriched Carbon",
+        name: 'Enriched Carbon',
         qty: 1
       },
       {
-        name: "Nitrogen Salt",
+        name: 'Nitrogen Salt',
         qty: 1
       }
     ]
   },
   {
-    name:"Organic Catalyst",
+    name:'Organic Catalyst',
     value: 320000,
     resources: [
       {
-        name: "Thermic Condensate",
+        name: 'Thermic Condensate',
         qty: 1
       },
       {
-        name: "Enriched Carbon",
+        name: 'Enriched Carbon',
         qty: 1
       }
     ]
   },
   {
-    name: "Acid",
+    name: 'Acid',
     value: 188000,
     resources: [
       {
-        name: "Mordite",
+        name: 'Mordite',
         qty: 25
       },
       {
-        name: "Fungal Mould",
+        name: 'Fungal Mould',
         qty: 600
       }
     ]
   },
   {
-    name: "Heat Capacitor",
+    name: 'Heat Capacitor',
     value: 180000,
     resources: [
       {
-        name: "Solanium",
+        name: 'Solanium',
         qty: 200
       },
       {
-        name: "Frost Crystal",
+        name: 'Frost Crystal',
         qty: 100
       }
     ]
   },
   {
-    name: "Grantine",
+    name: 'Grantine',
     value: 150000,
     resources: [
       {
-        name: "Ionised Cobalt",
+        name: 'Ionised Cobalt',
         qty: 50
       },
       {
-        name: "Dioxite",
+        name: 'Dioxite',
         qty: 50
       }
     ]
   },
   {
-    name: "Geodesite",
+    name: 'Geodesite',
     value: 150000,
     resources: [
       {
-        name: "Dirty Bronze",
+        name: 'Dirty Bronze',
         qty: 1
       },
       {
-        name: "Herox",
+        name: 'Herox',
         qty: 1
       },
       {
-        name: "Lemmium",
+        name: 'Lemmium',
         qty: 1
       }
     ]
   },
   {
-    name: "Iridesite",
+    name: 'Iridesite',
     value: 150000,
     resources: [
       {
-        name: "Aronium",
+        name: 'Aronium',
         qty: 1
       },
       {
-        name: "Magno-Gold",
+        name: 'Magno-Gold',
         qty: 1
       },
       {
-        name: "Grantine",
+        name: 'Grantine',
         qty: 1
       }
     ]
   },
   {
-    name: "Poly Fibre",
+    name: 'Poly Fibre',
     value: 130000,
     resources: [
       {
-        name: "Cactus Flesh",
+        name: 'Cactus Flesh',
         qty: 100
       },
       {
-        name: "Star Bulb",
+        name: 'Star Bulb',
         qty: 200
       }
     ]
   },
   {
-    name: "Lubricant",
+    name: 'Lubricant',
     value: 110000,
     resources: [
       {
-        name: "Faecium",
+        name: 'Faecium',
         qty: 50
       },
       {
-        name: "Gamma Root",
+        name: 'Gamma Root',
         qty: 400
       }
     ]
   },
   {
-    name: "Nitrogen Salt",
+    name: 'Nitrogen Salt',
     value: 50000,
     resources: [
       {
-        name: "Condensed Carbon",
+        name: 'Condensed Carbon',
         qty: 50
       },
       {
-        name: "Radon",
+        name: 'Radon',
         qty: 250
       }
     ]
   },
   {
-    name: "Enriched Carbon",
+    name: 'Enriched Carbon',
     value: 50000,
     resources: [
       {
-        name: "Condensed Carbon",
+        name: 'Condensed Carbon',
         qty: 50
       },
       {
-        name: "Radon",
+        name: 'Radon',
         qty: 250
       }
     ]
   },
   {
-    name: "Thermic Condensate",
+    name: 'Thermic Condensate',
     value: 50000,
     resources: [
       {
-        name: "Condensed Carbon",
+        name: 'Condensed Carbon',
         qty: 50
       },
       {
-        name: "Sulphurine",
+        name: 'Sulphurine',
         qty: 250
       }
     ]
   },
   {
-    name: "Unstable Gel",
+    name: 'Unstable Gel',
     value: 50000,
     resources: [
       {
-        name: "Cactus Flesh",
+        name: 'Cactus Flesh',
         qty: 200
       }
     ]
   },
   {
-    name: "Warp Cell",
+    name: 'Warp Cell',
     value: 46750,
     resources: [
       {
-        name: "Antimatter Housing",
+        name: 'Antimatter Housing',
         qty: 1
       },
       {
-        name: "Antimatter",
+        name: 'Antimatter',
         qty: 1
       }
     ]
   },
   {
-    name: "Warp Hypercore",
+    name: 'Warp Hypercore',
     value: 46750,
     resources: [
       {
-        name: "Antimatter",
+        name: 'Antimatter',
         qty: 1
       },
       {
-        name: "Storm Crystal",
+        name: 'Storm Crystal',
         qty: 1
       }
     ]
   },
   {
-    name: "Lemmium",
+    name: 'Lemmium',
     value: 25000,
     resources: [
       {
-        name: "Uranium",
+        name: 'Uranium',
         qty: 1
       },
       {
-        name: "Pure Ferrite",
+        name: 'Pure Ferrite',
         qty: 1
       }
     ]
   },
   {
-    name: "Dirty Bronze",
+    name: 'Dirty Bronze',
     value: 25000,
     resources: [
       {
-        name: "Pyrite",
+        name: 'Pyrite',
         qty: 1
       },
       {
-        name: "Pure Ferrite",
+        name: 'Pure Ferrite',
         qty: 1
       }
     ]
   },
   {
-    name: "Magno-Gold",
+    name: 'Magno-Gold',
     value: 25000,
     resources: [
       {
-        name: "Ionised Cobalt",
+        name: 'Ionised Cobalt',
         qty: 50
       },
       {
-        name: "Phosphorus",
+        name: 'Phosphorus',
         qty: 1
       }
     ]
   },
   {
-    name: "Aronium",
+    name: 'Aronium',
     value: 25000,
     resources: [
       {
-        name: "Ionised Cobalt",
+        name: 'Ionised Cobalt',
         qty: 50
       },
       {
-        name: "Paraffinium",
+        name: 'Paraffinium',
         qty: 50
       }
     ]
   },
   {
-    name: "Herox",
+    name: 'Herox',
     value: 25000,
     resources: [
       {
-        name: "Ammonia",
+        name: 'Ammonia',
         qty: 1
       },
       {
-        name: "Ionised Cobalt",
+        name: 'Ionised Cobalt',
         qty: 1
       }
     ]
   },
   {
-    name: "Amino Chamber",
+    name: 'Amino Chamber',
     value: 12300,
     resources: [
       {
-        name: "Metal Plating",
+        name: 'Metal Plating',
         qty: 1
       },
       {
-        name: "Chlorine",
+        name: 'Chlorine',
         qty: 20
       },
       {
-        name: "Condensed Carbon",
+        name: 'Condensed Carbon',
         qty: 25
       }
     ]
   },
   {
-    name: "Antimatter Housing",
+    name: 'Antimatter Housing',
     value: 6500,
     resources: [
       {
-        name: "Oxygen",
+        name: 'Oxygen',
         qty: 30
       },
       {
-        name: "Ferrite Dust",
+        name: 'Ferrite Dust',
         qty: 50
       }
     ]
   },
   {
-    name: "Magnetic Resonator",
+    name: 'Magnetic Resonator',
     value: 6150,
     resources: [
       {
-        name: "Magnetised Ferrite",
+        name: 'Magnetised Ferrite',
         qty: 40
       },
       {
-        name: "Ionised Cobalt",
+        name: 'Ionised Cobalt',
         qty: 40
       }
     ]
   },
   {
-    name: "Solar Mirror",
+    name: 'Solar Mirror',
     value: 6150,
     resources: [
       {
-        name: "Gold",
+        name: 'Gold',
         qty: 40
       },
       {
-        name: "Silver",
+        name: 'Silver',
         qty: 30
       },
       {
-        name: "Chromatic Metal",
+        name: 'Chromatic Metal',
         qty: 25
       }
     ]
   },
   {
-    name: "Antimatter",
+    name: 'Antimatter',
     value: 5233,
     resources: [
       {
-        name: "Chromatic Metal",
+        name: 'Chromatic Metal',
         qty: 25
       },
       {
-        name: "Condensed Carbon",
+        name: 'Condensed Carbon',
         qty: 20
       }
     ]
   },
   {
-    name: "Quantum Computer",
+    name: 'Quantum Computer',
     value: 4200,
     resources: [
       {
-        name: "Microprocessor",
+        name: 'Microprocessor',
         qty: 1
       },
       {
-        name: "Antimatter",
+        name: 'Antimatter',
         qty: 1
       },
       {
-        name: "Chromatic Metal",
+        name: 'Chromatic Metal',
         qty: 25
       }
     ]
   },
   {
-    name: "Hydraulic Wiring",
+    name: 'Hydraulic Wiring',
     value: 3600,
     resources: [
       {
-        name: "Carbon Nanotubes",
+        name: 'Carbon Nanotubes',
         qty: 2
       },
       {
-        name: "Salt",
+        name: 'Salt',
         qty: 20
       },
       {
-        name: "Di-hydrogen",
+        name: 'Di-hydrogen',
         qty: 40
       }
     ]
   },
   {
-    name: "AtlasPass v3",
+    name: 'AtlasPass v3',
     value: 2613,
     resources: [
       {
-        name: "Emeril",
+        name: 'Emeril',
         qty: 200
       },
       {
-        name: "Microprocessor",
+        name: 'Microprocessor',
         qty: 1
       }
     ]
   },
   {
-    name: "Microprocessor",
+    name: 'Microprocessor',
     value: 2000,
     resources: [
       {
-        name: "Chromatic Metal",
+        name: 'Chromatic Metal',
         qty: 40
       },
       {
-        name: "Carbon Nanotubes",
+        name: 'Carbon Nanotubes',
         qty: 1
       }
     ]
   },
   {
-    name: "AtlasPass v2",
+    name: 'AtlasPass v2',
     value: 1856,
     resources: [
       {
-        name: "Cadmium",
+        name: 'Cadmium',
         qty: 200
       },
       {
-        name: "Microprocessor",
+        name: 'Microprocessor',
         qty: 1
       }
     ]
   },
   {
-    name: "AtlasPass v1",
+    name: 'AtlasPass v1',
     value: 825,
     resources: [
       {
-        name: "Copper",
+        name: 'Copper',
         qty: 200
       },
       {
-        name: "Microprocessor",
+        name: 'Microprocessor',
         qty: 1
       }
     ]
   },
   {
-    name: "Metal Plating",
+    name: 'Metal Plating',
     value: 800,
     resources: [
       {
-        name: "Ferrite Dust",
+        name: 'Ferrite Dust',
         qty: 50
       }
     ]
   },
   {
-    name: "Hermetic Seal",
+    name: 'Hermetic Seal',
     value: 800,
     resources: [
       {
-        name: "Condensed Carbon",
+        name: 'Condensed Carbon',
         qty: 30
       }
     ]
   },
   {
-    name: "Carbon Nanotubes",
+    name: 'Carbon Nanotubes',
     value: 500,
     resources: [
       {
-        name: "Carbon",
+        name: 'Carbon',
         qty: 50
       }
     ]
   },
   {
-    name: "Glass",
+    name: 'Glass',
     value: 200,
     resources: [
       {
-        name: "Frost Crystal",
+        name: 'Frost Crystal',
         qty: 40
       }
     ]
   },
   {
-    name: "Di-hydrogen Jelly",
+    name: 'Di-hydrogen Jelly',
     value: 200,
     resources: [
       {
-        name: "Di-hydrogen",
+        name: 'Di-hydrogen',
         qty: 40
       }
     ]
   },
   {
-    name:"Ion Battery",
+    name:'Ion Battery',
     value: 200,
     resources: [
       {
-        name: "Ferrite Dust",
+        name: 'Ferrite Dust',
         qty: 20
       },
       {
-        name: "Cobalt",
+        name: 'Cobalt',
         qty: 10
       }
     ]
   },
   {
-    name:"Life Support Gel",
+    name:'Life Support Gel',
     value: 200,
     resources: [
       {
-        name: "Di-hydrogen Jelly",
+        name: 'Di-hydrogen Jelly',
         qty: 1
       },
       {
-        name:"Carbon",
+        name:'Carbon',
         qty: 20
       }
     ]
@@ -712,147 +712,153 @@ let craftingData = [
 
 let rawMaterials = [
   {
-    name: "Ammonia",
+    name: 'Ammonia',
     value: 62
   },
   {
-    name: "Cactus Flesh",
+    name: 'Cactus Flesh',
     value: 28
   },
   {
-    name: "Cadmium",
+    name: 'Cadmium',
     value: 234
   },
   {
-    name: "Carbon",
+    name: 'Carbon',
     value: 7
   },
   {
-    name: "Chlorine",
+    name: 'Chlorine',
     value: 602
   },
   {
-    name: "Chromatic Metal",
+    name: 'Chromatic Metal',
     value: 245
   },
   {
-    name: "Cobalt",
+    name: 'Cobalt',
     value: 198
   },
   {
-    name: "Condensed Carbon",
+    name: 'Condensed Carbon',
     value: 24
   },
   {
-    name: "Copper",
+    name: 'Copper',
     value: 110
   },
   {
-    name: "Di-hydrogen",
+    name: 'Di-hydrogen',
     value: 34
   },
   {
-    name: "Dioxite",
+    name: 'Dioxite',
     value: 62
   },
   {
-    name: "Emeril",
+    name: 'Emeril',
     value: 275
   },
   {
-    name: "Faecium",
+    name: 'Faecium',
     value: 30
   },
   {
-    name: "Ferrite Dust",
+    name: 'Ferrite Dust',
     value: 14
   },
   {
-    name: "Frost Crystal",
+    name: 'Frost Crystal',
     value: 12
   },
   {
-    name: "Fungal Mould",
+    name: 'Fungal Mould',
     value: 16
   },
   {
-    name: "Gamma Root",
+    name: 'Gamma Root',
     value: 16
   },
   {
-    name: "Gold",
+    name: 'Gold',
     value: 202
   },
   {
-    name: "Ionised Cobalt",
+    name: 'Ionised Cobalt',
     value: 401
   },
   {
-    name: "Magnetised Ferrite",
+    name: 'Magnetised Ferrite',
     value: 82
   },
   {
-    name: "Mordite",
+    name: 'Mordite',
     value: 40
   },
   {
-    name: "Oxygen",
+    name: 'Oxygen',
     value: 34
   },
   {
-    name: "Paraffinium",
+    name: 'Paraffinium',
     value: 62
   },
   {
-    name: "Phosphorus",
+    name: 'Phosphorus',
     value: 62
   },
   {
-    name: "Pure Ferrite",
+    name: 'Pure Ferrite',
     value: 28
   },
   {
-    name: "Pyrite",
+    name: 'Pyrite',
     value: 62
   },
   {
-    name: "Radon",
+    name: 'Radon',
     value: 20
   },
   {
-    name: "Salt",
+    name: 'Salt',
     value: 299
   },
   {
-    name: "Silver",
+    name: 'Silver',
     value: 101
   },
   {
-    name: "Solanium",
+    name: 'Solanium',
     value: 70
   },
   {
-    name: "Star Bulb",
+    name: 'Star Bulb',
     value: 32
   },
   {
-    name: "Storm Crystal",
+    name: 'Storm Crystal',
     value: 156950
   },
   {
-    name: "Sulphurine",
+    name: 'Sulphurine',
     value: 20
   },
   {
-    name: "Uranium",
-    value: 62 }
+    name: 'Uranium',
+    value: 62
+  }
 ];
 
 function init() {
   let item = itemNameFromParams();
 
-  if (searchForComponent(item)) {
+  if (item && searchForComponent(item)) {
     shoppingList(item);
+    return;
+  }
+
+  if (item) {
+    rawMaterialsPage(item);
   } else {
     indexPage();
   }
@@ -862,7 +868,7 @@ function init() {
 
 function itemNameFromParams() {
   let params = new URL(document.location).searchParams;
-  return params.get("item");
+  return params.get('item');
 }
 
 // Presentation section:
@@ -872,12 +878,12 @@ function itemNameFromParams() {
 function indexPage(data = craftingData) {
   let table = displayElement('', 'table');
 
-  var headings = ["<b>Item</b>", "<b>Value</b>"];
+  var headings = ['<b>Item</b>', '<b>Value</b>'];
   addTableHeading(headings, table);
 
   data.forEach( row => {
     var {name, value} = row;
-    var cells = [`<a href="/?item=${name}">${name}</a>`, numberWithCommas(value)];
+    var cells = [`<a href='/?item=${name}'>${name}</a>`, numberWithCommas(value)];
     addTableRow(cells, table);
   });
 }
@@ -886,36 +892,49 @@ function shoppingList(item) {
   var component = buildComponentTree(item);
   var head = `
 <h1>${component.name}</h1>
-<p class="component-value units">value ${numberWithCommas(component.value)}
-<p class="component-profit units">profit ${numberWithCommas(component.profit)}
-<p class="component-cost units">cost ${numberWithCommas(component.rawMaterialsTotalCost)}
+<p class='component-value units'>value ${numberWithCommas(component.value)}
+<p class='component-profit units'>profit ${numberWithCommas(component.profit)}
+<p class='component-cost units'>cost ${numberWithCommas(component.rawMaterialsTotalCost)}
 <p>
-  <em>After harvesting the <a href="#raw_materials">raw materials</a>, craft components in the order listed. See the <a href="#graph">construction overview</a> for a visualisation of the component resources</em>
+  <em>After harvesting the <a href='#raw_materials'>raw materials</a>, craft components in the order listed. See the <a href='#graph'>construction overview</a> for a visualisation of the component resources</em>
 </p>
   `;
   displayTemplate(head);
 
   if(component.craftable.length > 0) {
-    displayElement("Craftable Components", "h2");
+    displayElement('Craftable Components', 'h2');
 
     // Craftable shopping list...
-    let componentTable = displayResourcesTable(null, document.body, ["Component", "Quantity", "Cost"]);
+    let componentTable = displayResourcesTable(null, document.body, ['Component', 'Quantity', 'Cost']);
     showResources(component.aggregatedComponents, componentTable);
   }
 
-  displayElement(`<a name="raw_materials"></a>`);
-  displayElement(`<a name="raw_materials"></a>Raw materials`, "h2");
+  displayElement(`<a name='raw_materials'></a>`);
+  displayElement(`<a name='raw_materials'></a>Raw materials`, 'h2');
   showRawMaterials(item);
 
-  displayElement("Construction Overview", "h2#graph");
+  displayElement('Construction Overview', 'h2#graph');
+  displayElement(`<small><em>(graph nodes click through to components / raw materials...)</em></small>`, 'p');
+
   renderDotGraph(item);
+
+}
+
+function rawMaterialsPage(item) {
+  let value = rawMaterials.find( i => i.name == item ).value;
+
+  let head = `
+<h1>${item}</h1>
+<p class='component-value units'>value ${numberWithCommas(value)}
+  `;
+  displayTemplate(head);
 }
 
 function showResources(resources, table) {
   resources.forEach(
     (resource) => {
       if(resource) {
-        addTableRow([`<a href="/?item=${resource.name}">${resource.name}</a>`, resource.qty, numberWithCommas(resource.cost)], table);
+        addTableRow([`<a href='/?item=${resource.name}'>${resource.name}</a>`, resource.qty, numberWithCommas(resource.cost)], table);
       };
     }
   );
@@ -927,8 +946,8 @@ function showRawMaterials(item){
   displayResourcesTable(
     componentTree.aggregatedRawMaterials.concat(
       [
-        {name: "<b>Total Cost</b>", qty: "", cost: `<b>${numberWithCommas(componentTree.rawMaterialsTotalCost)}</b>`},
-        {name: "<b>Profit</b>", qty: "", cost: `<b>${numberWithCommas(componentTree.profit)}</b`}
+        {name: '<b>Total Cost</b>', qty: '', cost: `<b>${numberWithCommas(componentTree.rawMaterialsTotalCost)}</b>`},
+        {name: '<b>Profit</b>', qty: '', cost: `<b>${numberWithCommas(componentTree.profit)}</b`}
       ]
     ));
 }
@@ -1048,10 +1067,10 @@ function displayTemplate(template, container = document.body) {
   container.innerHTML += template;
 }
 
-function displayElement(text, htmlElementName = "p", container = document.body) {
+function displayElement(text, htmlElementName = 'p', container = document.body) {
   var element;
   let tagAndID = htmlElementName.split('#');
-  let tagAndClassNames = tagAndID[0].split(".");
+  let tagAndClassNames = tagAndID[0].split('.');
 
   if(tagAndClassNames[0] && tagAndClassNames[0] != '') {
      element = document.createElement(tagAndClassNames.shift());
@@ -1074,11 +1093,11 @@ function displayElement(text, htmlElementName = "p", container = document.body) 
 }
 
 function displayHeading(text, container = document.body) {
-  return displayElement(text, "h1", container);
+  return displayElement(text, 'h1', container);
 }
 
-function displayResourcesTable(items, container = document.body, headings = ["Component", "Quantity", "Cost"]) {
-  var table = document.createElement("table");
+function displayResourcesTable(items, container = document.body, headings = ['Component', 'Quantity', 'Cost']) {
+  var table = document.createElement('table');
   container.appendChild(table);
 
   addTableHeading(headings.map( it => `<b>${it}</b>` ), table);
@@ -1089,11 +1108,11 @@ function displayResourcesTable(items, container = document.body, headings = ["Co
 }
 
 function addTableHeading(cells, table) {
-  var thead = document.createElement("thead");
-  var tr = document.createElement("tr");
+  var thead = document.createElement('thead');
+  var tr = document.createElement('tr');
 
   cells.forEach((c) => {
-    var th = document.createElement("th");
+    var th = document.createElement('th');
     th.innerHTML = c;
     tr.appendChild(th);
   });
@@ -1103,10 +1122,10 @@ function addTableHeading(cells, table) {
 }
 
 function addTableRow(cells, table) {
-  var tr = document.createElement("tr");
+  var tr = document.createElement('tr');
 
   cells.forEach((c) => {
-    var td = document.createElement("td");
+    var td = document.createElement('td');
     td.innerHTML = c;
     tr.appendChild(td);
   });
@@ -1115,7 +1134,7 @@ function addTableRow(cells, table) {
 }
 
 function numberWithCommas(n) {
-  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 // graphing... generate graphviz directed graph
@@ -1126,25 +1145,25 @@ function generateDigraph(itemName) {
   if (item) {
     let graph = item.resources?.map( i => `"${itemName}" -> "${i.name}"` ).flat(2);
     graph.push( item.resources?.map(i => generateDigraph(i.name) ).flat(2));
-    return graph.join(' ').replaceAll(",","").trim();
+    return graph.join(' ').replaceAll(',','').trim();
   }
 
   return undefined;
 }
 
-function generateNodeNames(itemName) {
+function generateNodeNames(itemName, depth = 0) {
   let item = searchForComponent(itemName);
   let graph = [itemName];
 
   if (item) {
-    graph.push( item.resources.map(i => generateNodeNames(i.name) ));
+    graph.push( item.resources.map(i => generateNodeNames(i.name, depth + 1) ));
   }
 
   return graph.flat(2);
 }
 
-function generateNodeList(itemName, nodeStyle = '[shape = box, style = "rounded, filled", fillcolor=slategray1 ]') {
-  let nodes =  generateNodeNames(itemName).map( n => `"${n}" ${nodeStyle}`);
+function generateNodeList(itemName, nodeStyle = 'shape = box, style = "rounded, filled", fillcolor=slategray1') {
+  let nodes =  generateNodeNames(itemName).map( n => `"${n}" [ ${nodeStyle}, href="/?item=${n}" ]`);
   return nodes.join("\n");
 }
 
