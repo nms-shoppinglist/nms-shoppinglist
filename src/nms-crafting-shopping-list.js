@@ -1143,7 +1143,7 @@ function generateNodeNames(itemName) {
   return graph.flat(2);
 }
 
-function generateNodeList(itemName, nodeStyle = '[shape = box]') {
+function generateNodeList(itemName, nodeStyle = '[shape = box, style = "rounded, filled", fillcolor=slategray1 ]') {
   let nodes =  generateNodeNames(itemName).map( n => `"${n}" ${nodeStyle}`);
   return nodes.join("\n");
 }
