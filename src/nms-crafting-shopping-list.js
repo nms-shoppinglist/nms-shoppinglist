@@ -1166,24 +1166,8 @@ function generateDotGraph(itemName) {
 
 }
 
-function scaleGraphUp() {
-  let graph = document.getElementById('svg_graph');
-  graph.currentScale += 0.02;
-}
-
-function scaleGraphDown() {
-  let graph = document.getElementById('svg_graph');
-  graph.currentScale -= 0.02;
-}
-
 function renderDotGraph(itemName) {
   let viz = new Viz();
-
-  let scaleUp = displayElement('+', '#scaleUp');
-  scaleUp.onclick = scaleGraphUp;
-
-  let scaleDown = displayElement('-', '#scaleDown');
-  scaleDown.onclick = scaleGraphDown;
 
   viz.renderSVGElement(generateDotGraph(itemName))
     .then(function(element) {
@@ -1194,10 +1178,8 @@ function renderDotGraph(itemName) {
       element.removeAttribute('width');
     })
     .catch(error => {
-      // Create a new Viz instance (@see Caveats page for more info)
       viz = new Viz();
 
-      // Possibly display the error
       console.error(error);
     });
 }
