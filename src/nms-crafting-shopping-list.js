@@ -895,6 +895,7 @@ function shoppingList(item) {
 <p class='component-value units'>value ${numberWithCommas(component.value)}
 <p class='component-profit units'>profit ${numberWithCommas(component.profit)}
 <p class='component-cost units'>cost ${numberWithCommas(component.rawMaterialsTotalCost)}
+<p><a href='https://nomanssky.fandom.com/wiki/${component.name}'>${component.name} on No Man's Sky Wiki</a></p>
 <p>
   <em>After harvesting the <a href='#raw_materials'>raw materials</a>, craft components in the order listed. See the <a href='#graph'>construction overview</a> for a visualisation of the component resources</em>
 </p>
@@ -920,12 +921,13 @@ function shoppingList(item) {
 
 }
 
-function rawMaterialsPage(item) {
-  let value = rawMaterials.find( i => i.name == item ).value;
+function rawMaterialsPage(rawMaterial) {
+  let value = rawMaterials.find( i => i.name == rawMaterial ).value;
 
   let head = `
-<h1>${item}</h1>
+<h1>${rawMaterial}</h1>
 <p class='component-value units'>value ${numberWithCommas(value)}
+<p><a href='https://nomanssky.fandom.com/wiki/${rawMaterial}'>${rawMaterial} on No Man's Sky Wiki</a></p>
   `;
   displayTemplate(head);
 }
