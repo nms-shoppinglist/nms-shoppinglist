@@ -1187,8 +1187,11 @@ function renderDotGraph(itemName) {
 
   viz.renderSVGElement(generateDotGraph(itemName))
     .then(function(element) {
-      element.id = 'svg_graph';
       document.body.appendChild(element);
+      element.id = 'svg_graph';
+
+      element.removeAttribute('height');
+      element.removeAttribute('width');
     })
     .catch(error => {
       // Create a new Viz instance (@see Caveats page for more info)
