@@ -876,7 +876,7 @@ function itemNameFromParams() {
 // Pages
 
 function indexPage(data = craftingData) {
-  let table = displayElement('', 'table');
+  let table = displayElement('', 'table#indexPage');
 
   var headings = ['<b>Item</b>', '<b>Value</b>'];
   addTableHeading(headings, table);
@@ -911,7 +911,7 @@ function shoppingList(item) {
   }
 
   displayElement(`<a name='raw_materials'></a>`);
-  displayElement(`Raw materials`, 'h2');
+  displayElement(`Raw Materials`, 'h2#raw_materials_title');
   showRawMaterials(item);
 
   displayElement('Construction Overview', 'h2#graph');
@@ -950,8 +950,8 @@ function showRawMaterials(item){
       [
         {name: '<b>Total Cost</b>', qty: '', cost: `<b>${numberWithCommas(componentTree.rawMaterialsTotalCost)}</b>`},
         {name: '<b>Net Profit</b>', qty: '', cost: `<b>${numberWithCommas(componentTree.profit)}</b>`},
-        {name: '<b>Profit Margin</b>', qty: '', cost: `<b>${ ((componentTree.profitMargin / componentTree.value) * 100).toFixed(1) }%</b>`},
-        {name: '<b>Profit Markup</b>', qty: '', cost: `<b>${ ((componentTree.profit / componentTree.rawMaterialsTotalCost) * 100).toFixed(1) }%</b>`},
+        {name: '<b>Profit Margin</b>', qty: '', cost: `<b>${componentTree.profitMargin}</b>`},
+        {name: '<b>Profit Markup</b>', qty: '', cost: `<b>${componentTree.profitMarkup}</b>`},
       ]
     ));
 }
@@ -1026,8 +1026,14 @@ function buildComponentTree(componentName, root = undefined, quantity = 1) {
     root.rawMaterialsTotalCost = root.aggregatedRawMaterials.reduce((p,c) => p + c.cost, 0);
 
     root.profit = root.value - root.rawMaterialsTotalCost;
-    root.profitMargin = `${(((root.profit / root.value) * 100).toFixed(1)).toString(10)}%`;
-    root.profitMarkup = `${(((root.profit / root.rawMaterialsTotalCost) * 100).toFixed(1)).toString(10)}%`;
+
+    root.profitMargin = (((root.profit / root.value) * 100)
+                         .toFixed(1))
+      .toString(10) + '%';
+
+    root.profitMarkup = (((root.profit / root.rawMaterialsTotalCost) * 100)
+                         .toFixed(1))
+      .toString(10) + '%';
   }
 
   return resourceTree;
@@ -1104,10 +1110,10 @@ function displayHeading(text, container = document.body) {
 }
 
 function displayResourcesTable(items, container = document.body, headings = ['Component', 'Quantity', 'Cost']) {
-  var table = document.createElement('table');
+  var table = displayElement('', 'table#resources_table');
   container.appendChild(table);
 
-  addTableHeading(headings.map( it => `<b>${it}</b>` ), table);
+  addTableHeading(headings.map( h => `<b>${h}</b>` ), table);
 
   items?.forEach((i) => addTableRow([i.name, i.qty, numberWithCommas(i.cost)], table));
 

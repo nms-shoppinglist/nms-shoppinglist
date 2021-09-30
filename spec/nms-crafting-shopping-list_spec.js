@@ -1,9 +1,147 @@
 // spec
-var it, expect, describe, searchForComponent, buildComponentTree, filterOnRawMaterials;
+var it, expect, describe, beforeEach, afterEach;
+var searchForComponent, buildComponentTree, filterOnRawMaterials;
 
 let example = it;
 
 describe ("No Man's Sky - Crafting Shopping List", () => {
+
+  describe('pages', () => {
+    describe('index', () => {
+      it('displays table of components', () => {
+        let page = document;
+
+        indexPage();
+
+        let table = page.getElementById('indexPage');
+
+        expect(table.tagName).toEqual('TABLE');
+
+        expect(Array
+               .from(table.rows)
+               .map( i => i
+                     // get the Table text
+                     .innerText
+                     // TABS to spaces
+                     .replaceAll("\t", " ") ))
+          .toEqual([
+            'Item Value',
+            'Stasis Device 15,600,000',
+            'Fusion Ignitor 15,600,000',
+            'Quantum Processor 5,200,000',
+            'Portable Reactor 4,200,000',
+            'Cryogenic Chamber 3,800,000',
+            'Superconductor 2,000,000',
+            'Cryo-Pump 1,500,000',
+            'Fusion Accelerant 1,500,000',
+            'Circuit Board 916,250',
+            'Liquid Explosive 800,500',
+            'Living Glass 566,000',
+            'Semiconductor 400,000',
+            'Hot Ice 400,000',
+            'Organic Catalyst 320,000',
+            'Acid 188,000',
+            'Heat Capacitor 180,000',
+            'Grantine 150,000',
+            'Geodesite 150,000',
+            'Iridesite 150,000',
+            'Poly Fibre 130,000',
+            'Lubricant 110,000',
+            'Nitrogen Salt 50,000',
+            'Enriched Carbon 50,000',
+            'Thermic Condensate 50,000',
+            'Unstable Gel 50,000',
+            'Warp Cell 46,750',
+            'Warp Hypercore 46,750',
+            'Lemmium 25,000',
+            'Dirty Bronze 25,000',
+            'Magno-Gold 25,000',
+            'Aronium 25,000',
+            'Herox 25,000',
+            'Amino Chamber 12,300',
+            'Antimatter Housing 6,500',
+            'Magnetic Resonator 6,150',
+            'Solar Mirror 6,150',
+            'Antimatter 5,233',
+            'Quantum Computer 4,200',
+            'Hydraulic Wiring 3,600',
+            'AtlasPass v3 2,613',
+            'Microprocessor 2,000',
+            'AtlasPass v2 1,856',
+            'AtlasPass v1 825',
+            'Metal Plating 800',
+            'Hermetic Seal 800',
+            'Carbon Nanotubes 500',
+            'Glass 200',
+            'Di-hydrogen Jelly 200',
+            'Ion Battery 200',
+            'Life Support Gel 200'
+          ]);
+
+        table.remove();
+      });
+    });
+
+    describe('shopping list', () => {
+      let item = 'Solar Mirror';
+
+      beforeEach(() => {
+        shoppingList(item);
+      });
+
+      it('displays item title', () => {
+        let title = document.querySelector('h1');
+        expect(title.innerText).toEqual('Solar Mirror');
+      });
+
+      it('displays item value', () => {
+        let value = document.querySelector('p.component-value').innerText;
+        expect(value).toEqual('Value 6,150u');
+      });
+
+      it('displays item profit', () => {
+        let profit = document.querySelector('p.component-profit').innerText;
+        expect(profit).toEqual('Profit -11,085u / Margin: -180.2% / Markup: -64.3%');
+      });
+
+      it('displays item cost', () => {
+        let profit = document.querySelector('p.component-cost').innerText;
+        expect(profit).toEqual('Cost 17,235u');
+      });
+
+      it(`displays item raw materials`, () => {
+        let profit = document.querySelector('h2#raw_materials_title').innerText;
+        expect(profit).toEqual('Raw Materials');
+
+        let rawMaterialsText = Array.from(
+          document.querySelector('#resources_table').children
+        ).map( e => e.innerText.replaceAll('\t', ' ').trim() );
+
+        expect(rawMaterialsText).toEqual(
+          [
+            `Component Quantity Cost`,
+            `Chromatic Metal 25 6,125`,
+            `Gold 40 8,080`,
+            `Silver 30 3,030`,
+            `Total Cost  17,235`,
+            `Net Profit  -11,085`,
+            `Profit Margin  -180.2%`,
+            `Profit Markup  -64.3%`
+          ]);
+      });
+
+      it(`displays item construction overview`, () => {
+        let profit = document.querySelector('h2#graph').innerText;
+        expect(profit).toEqual('Construction Overview');
+      });
+
+      afterEach((done) => {
+        setTimeout(() => cleanUpRenderedHTML(done), 100);
+      });
+
+    });
+  });
+
 
   describe('HTML helpers', () => {
 
@@ -392,3 +530,15 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
     });
   });
 });
+
+function cleanUpRenderedHTML(done) {
+  let protectedChildren = document.querySelector('.jasmine_html-reporter');
+
+  // Remove HTML rendered during test
+  Array
+    .from(document.body.children)
+    .filter( e => e != protectedChildren )
+    .forEach( e => e.remove() );
+
+  done();
+}
