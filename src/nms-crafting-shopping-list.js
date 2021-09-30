@@ -1063,7 +1063,7 @@ function init() {
   }
 }
 
-// routing logic
+// routing helper
 
 function itemNameFromParams() {
   let params = new URL(document.location).searchParams;
@@ -1074,13 +1074,17 @@ function itemNameFromParams() {
 
 // Pages
 
-function indexPage(data = craftingData, sort = 1, reverse = true) {
-  let table = displayElement('', 'table#indexPage');
+function indexPage(data = craftingData, sort = 1, reverse = 'true') {
+  let table = displayElement('', 'table#indexPage', selector('#content'));
 
   table.dataset.sort = sort;
   table.dataset.reverse = reverse;
 
-  let headings = ['<b>Item</b>', '<b>Value</b>', '<b>Profit</b>', '<b>Markup</b>', '<b>Margin</b>'];
+  let headings = ['<b>Item</b>',
+                  '<b>Value</b>',
+                  '<b>Profit</b>',
+                  '<b>Markup</b>',
+                  '<b>Margin</b>'];
   let headingElements = addTableHeading(headings, table);
 
   Array.from(headingElements).forEach( th => th.onclick = reSortTable);
@@ -1102,8 +1106,22 @@ function indexPage(data = craftingData, sort = 1, reverse = true) {
   }
 
   data.forEach( row => {
-    var {name, value, profit, profitMarkup, profitMargin} = row;
-    var cells = [`<a href='/?item=${name}'>${name}</a>`, numberWithCommas(value), numberWithCommas(profit), numberAsPercentage(profitMarkup), numberAsPercentage(profitMargin)];
+    var {
+      name,
+      value,
+      profit,
+      profitMarkup,
+      profitMargin
+    } = row;
+
+    var cells = [
+      `<a href='/?item=${name}'>${name}</a>`,
+      numberWithCommas(value),
+      numberWithCommas(profit),
+      numberAsPercentage(profitMarkup),
+      numberAsPercentage(profitMargin)
+    ];
+
     addTableRow(cells, table);
   });
 }
@@ -1321,12 +1339,15 @@ function reSortTable(e) {
   // destroy the table
   table.remove();
 
-  // re-render index page sorted ... (can generalise later...)
-  indexPage(undefined, sortIndex, !table.dataset.reverse == 'true');
-
+  // re-render index page sorted
+  indexPage(undefined, sortIndex, table.dataset.reverse != 'true');
 }
 
 // html helpers
+function selector(selector) {
+  return document.querySelector(selector);
+}
+
 function displayTemplate(template, container = document.body) {
   container.innerHTML += template;
 }
