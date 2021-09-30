@@ -892,9 +892,9 @@ function shoppingList(item) {
   var component = buildComponentTree(item);
   var head = `
 <h1>${component.name}</h1>
-<p class='component-value units'>value ${numberWithCommas(component.value)}
-<p class='component-profit units'>profit ${numberWithCommas(component.profit)}
-<p class='component-cost units'>cost ${numberWithCommas(component.rawMaterialsTotalCost)}
+<p class='component-value units'>Value ${numberWithCommas(component.value)}u</p>
+<p class='component-profit units'>Profit ${numberWithCommas(component.profit)}u / Margin: ${component.profitMargin} / Markup: ${component.profitMarkup}</p>
+<p class='component-cost units'>Cost ${numberWithCommas(component.rawMaterialsTotalCost)}u</p>
 <p><a href='https://nomanssky.fandom.com/wiki/${component.name}'>${component.name} on No Man's Sky Wiki</a></p>
 <p>
   <em>After harvesting the <a href='#raw_materials'>raw materials</a>, craft components in the order listed. See the <a href='#graph'>construction overview</a> for a visualisation of the component resources</em>
@@ -911,7 +911,7 @@ function shoppingList(item) {
   }
 
   displayElement(`<a name='raw_materials'></a>`);
-  displayElement(`<a name='raw_materials'></a>Raw materials`, 'h2');
+  displayElement(`Raw materials`, 'h2');
   showRawMaterials(item);
 
   displayElement('Construction Overview', 'h2#graph');
@@ -949,7 +949,9 @@ function showRawMaterials(item){
     componentTree.aggregatedRawMaterials.concat(
       [
         {name: '<b>Total Cost</b>', qty: '', cost: `<b>${numberWithCommas(componentTree.rawMaterialsTotalCost)}</b>`},
-        {name: '<b>Profit</b>', qty: '', cost: `<b>${numberWithCommas(componentTree.profit)}</b`}
+        {name: '<b>Net Profit</b>', qty: '', cost: `<b>${numberWithCommas(componentTree.profit)}</b>`},
+        {name: '<b>Profit Margin</b>', qty: '', cost: `<b>${ ((componentTree.profitMargin / componentTree.value) * 100).toFixed(1) }%</b>`},
+        {name: '<b>Profit Markup</b>', qty: '', cost: `<b>${ ((componentTree.profit / componentTree.rawMaterialsTotalCost) * 100).toFixed(1) }%</b>`},
       ]
     ));
 }
@@ -1024,6 +1026,8 @@ function buildComponentTree(componentName, root = undefined, quantity = 1) {
     root.rawMaterialsTotalCost = root.aggregatedRawMaterials.reduce((p,c) => p + c.cost, 0);
 
     root.profit = root.value - root.rawMaterialsTotalCost;
+    root.profitMargin = `${(((root.profit / root.value) * 100).toFixed(1)).toString(10)}%`;
+    root.profitMarkup = `${(((root.profit / root.rawMaterialsTotalCost) * 100).toFixed(1)).toString(10)}%`;
   }
 
   return resourceTree;
@@ -1031,10 +1035,11 @@ function buildComponentTree(componentName, root = undefined, quantity = 1) {
 
 function reduceOnName(p, c) {
 
-  let i = p?.findIndex(e => e.name === c.name);
-  if(i > -1) {
-    p[i].qty += c.qty;
-    p[i].cost += c.cost;
+  let f = p?.find(e => e.name === c.name);
+
+  if(f) {
+    f.qty += c.qty;
+    f.cost += c.cost;
 
     return p;
   }
@@ -1165,7 +1170,7 @@ function generateNodeNames(itemName, depth = 0) {
 }
 
 function generateNodeList(itemName, nodeStyle = 'shape = box, style = "rounded, filled", fillcolor=slategray1') {
-  let nodes =  generateNodeNames(itemName).map( n => `"${n}" [ ${nodeStyle}, href="/?item=${n}" ]`);
+  let nodes =  generateNodeNames(itemName).map( n => `"${n}" [${nodeStyle}, href="/?item=${n}"]`);
   return nodes.join("\n");
 }
 

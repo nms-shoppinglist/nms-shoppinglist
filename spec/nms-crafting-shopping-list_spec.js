@@ -88,9 +88,9 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
     });
 
     it('generates a node list', () => {
-      let subject = generateNodeList('AtlasPass v2', '[shape="box"]');
+      let subject = generateNodeList('AtlasPass v2', 'shape="box"');
 
-      expect(subject).toEqual(`"AtlasPass v2" [shape="box"]\n"Cadmium" [shape="box"]\n"Microprocessor" [shape="box"]\n"Chromatic Metal" [shape="box"]\n"Carbon Nanotubes" [shape="box"]\n"Carbon" [shape="box"]`);
+      expect(subject).toEqual(`"AtlasPass v2" [shape="box", href="/?item=AtlasPass v2"]\n"Cadmium" [shape="box", href="/?item=Cadmium"]\n"Microprocessor" [shape="box", href="/?item=Microprocessor"]\n"Chromatic Metal" [shape="box", href="/?item=Chromatic Metal"]\n"Carbon Nanotubes" [shape="box", href="/?item=Carbon Nanotubes"]\n"Carbon" [shape="box", href="/?item=Carbon"]`);
     });
 
   });
@@ -323,6 +323,8 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
           value: 1856,
           rawMaterialsTotalCost: 56950,
           profit: -55094,
+          profitMargin: '-2968.4%',
+          profitMarkup: '-96.7%',
           aggregatedComponents: [
             {
               name: "Carbon Nanotubes",

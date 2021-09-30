@@ -14,7 +14,7 @@
 }
 
 .component-value {
-  background-color: black;
+  background-color: rgba(30, 120, 175, 1);
 }
 .component-profit {
   background-color: green;
