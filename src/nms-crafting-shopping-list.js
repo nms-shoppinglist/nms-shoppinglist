@@ -1074,11 +1074,32 @@ function itemNameFromParams() {
 
 // Pages
 
-function indexPage(data = craftingData, sort = "value", dir = "desc") {
+function indexPage(data = craftingData, sort = 1, reverse = true) {
   let table = displayElement('', 'table#indexPage');
 
-  var headings = ['<b>Item</b>', '<b>Value</b>', '<b>Profit</b>', '<b>Markup</b>', '<b>Margin</b>'];
-  addTableHeading(headings, table);
+  table.dataset.sort = sort;
+  table.dataset.reverse = reverse;
+
+  let headings = ['<b>Item</b>', '<b>Value</b>', '<b>Profit</b>', '<b>Markup</b>', '<b>Margin</b>'];
+  let headingElements = addTableHeading(headings, table);
+
+  Array.from(headingElements).forEach( th => th.onclick = reSortTable);
+
+  let orderingFuncs = [
+    orderByName,
+    orderByValue,
+    orderByProfit,
+    orderByProfitMarkup,
+    orderByProfitMargin
+  ];
+
+  let orderingFunc = orderingFuncs[sort];
+
+  data = data.sort(orderingFunc);
+
+  if (reverse) {
+    data = data.reverse();
+  }
 
   data.forEach( row => {
     var {name, value, profit, profitMarkup, profitMargin} = row;
@@ -1257,23 +1278,52 @@ function filterOnCraftable(resources) {
 }
 
 function orderByName(a, b) {
-  return a.name > b.name ? 1 : -1;
+  return orderByProperty(a, b, 'name');
 }
 
 function orderByValue(a, b) {
-  return a.value > b.value ? 1 : -1;
+  return orderByProperty(a, b, 'value');
 }
 
 function orderByCost(a, b) {
-  return a.cost > b.cost ? 1 : -1;
+  return orderByProperty(a, b, 'cost');
 }
 
-function orderByAsc(a, b) {
-  return a > b ? 1 : -1;
+function orderByProfit(a, b) {
+  return orderByProperty(a, b, 'profit');
 }
 
-function orderByDesc(a, b) {
-  return a < b ? 1 : -1;
+function orderByProfitMarkup(a, b) {
+  return orderByProperty(a, b, 'profitMarkup');
+}
+
+function orderByProfitMargin(a, b) {
+  return orderByProperty(a, b, 'profitMargin');
+}
+
+function orderByProperty(a,b,prop) {
+  return a[prop] > b[prop] ? 1 : -1;
+}
+
+function reSortTable(e) {
+  let column = e.currentTarget;
+
+  var table = e.currentTarget.parentElement;
+
+  while( table == undefined || table.tagName != 'TABLE' ) {
+    table = table.parentElement;
+  }
+
+  // get column index
+  let row = column.parentElement;
+  let sortIndex = Array.from(row.children).findIndex( th => th == column );
+
+  // destroy the table
+  table.remove();
+
+  // re-render index page sorted ... (can generalise later...)
+  indexPage(undefined, sortIndex, !table.dataset.reverse == 'true');
+
 }
 
 // html helpers
@@ -1333,6 +1383,8 @@ function addTableHeading(cells, table) {
 
   thead.appendChild(tr);
   table.appendChild(thead);
+
+  return tr.children;
 }
 
 function addTableRow(cells, table) {
