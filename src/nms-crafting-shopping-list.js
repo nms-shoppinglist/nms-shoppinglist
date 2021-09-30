@@ -1,712 +1,911 @@
-
 let craftingData = [
   {
-    name:'Stasis Device',
-    value: 15600000,
-    resources: [
+    "name": "Stasis Device",
+    "value": 15600000,
+    "resources": [
       {
-        name:'Quantum Processor',
-        qty: 1
+        "name": "Quantum Processor",
+        "qty": 1
       },
       {
-        name:'Cryogenic Chamber',
-        qty: 1
+        "name": "Cryogenic Chamber",
+        "qty": 1
       },
       {
-        name: 'Iridesite',
-        qty: 1
+        "name": "Iridesite",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 15461688,
+    "profitMargin": 99.11338461538462,
+    "profitMarkup": 11178.847822314767,
+    "rawMaterialsTotalCost": 138312
   },
   {
-    name: 'Fusion Ignitor',
-    value: 15600000,
-    resources: [
+    "name": "Fusion Ignitor",
+    "value": 15600000,
+    "resources": [
       {
-        name: 'Quantum Processor',
-        qty: 1
+        "name": "Quantum Processor",
+        "qty": 1
       },
       {
-        name: 'Portable Reactor',
-        qty: 1
+        "name": "Portable Reactor",
+        "qty": 1
       },
       {
-        name: 'Geodesite',
-        qty: 1
+        "name": "Geodesite",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 15521557,
+    "profitMargin": 99.49716025641025,
+    "profitMarkup": 19787.051744578865,
+    "rawMaterialsTotalCost": 78443
   },
   {
-    name: 'Quantum Processor',
-    value: 5200000,
-    resources: [
+    "name": "Quantum Processor",
+    "value": 5200000,
+    "resources": [
       {
-        name: 'Circuit Board',
-        qty: 1
+        "name": "Circuit Board",
+        "qty": 1
       },
       {
-        name: 'Superconductor',
-        qty: 1
+        "name": "Superconductor",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 5157000,
+    "profitMargin": 99.17307692307692,
+    "profitMarkup": 11993.023255813954,
+    "rawMaterialsTotalCost": 43000
   },
   {
-    name: 'Portable Reactor',
-    value: 4200000,
-    resources: [
+    "name": "Portable Reactor",
+    "value": 4200000,
+    "resources": [
       {
-        name: 'Liquid Explosive',
-        qty: 1
+        "name": "Liquid Explosive",
+        "qty": 1
       },
       {
-        name: 'Fusion Accelerant',
-        qty: 1
+        "name": "Fusion Accelerant",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 4165200,
+    "profitMargin": 99.17142857142856,
+    "profitMarkup": 11968.965517241379,
+    "rawMaterialsTotalCost": 34800
   },
   {
-    name: 'Cryogenic Chamber',
-    value: 3800000,
-    resources: [
+    "name": "Cryogenic Chamber",
+    "value": 3800000,
+    "resources": [
       {
-        name: 'Living Glass',
-        qty: 1
+        "name": "Living Glass",
+        "qty": 1
       },
       {
-        name: 'Cryo-Pump',
-        qty: 1
+        "name": "Cryo-Pump",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 3771100,
+    "profitMargin": 99.23947368421052,
+    "profitMarkup": 13048.78892733564,
+    "rawMaterialsTotalCost": 28900
   },
   {
-    name: 'Superconductor',
-    value: 2000000,
-    resources: [
+    "name": "Superconductor",
+    "value": 2000000,
+    "resources": [
       {
-        name: 'Semiconductor',
-        qty: 1
+        "name": "Semiconductor",
+        "qty": 1
       },
       {
-        name: 'Enriched Carbon',
-        qty: 1
+        "name": "Enriched Carbon",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 1981400,
+    "profitMargin": 99.07000000000001,
+    "profitMarkup": 10652.688172043012,
+    "rawMaterialsTotalCost": 18600
   },
   {
-    name: 'Cryo-Pump',
-    value: 1500000,
-    resources: [
+    "name": "Cryo-Pump",
+    "value": 1500000,
+    "resources": [
       {
-        name: 'Thermic Condensate',
-        qty: 1
+        "name": "Thermic Condensate",
+        "qty": 1
       },
       {
-        name: 'Hot Ice',
-        qty: 1
+        "name": "Hot Ice",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 1481400,
+    "profitMargin": 98.76,
+    "profitMarkup": 7964.516129032258,
+    "rawMaterialsTotalCost": 18600
   },
   {
-    name: 'Fusion Accelerant',
-    value: 1500000,
-    resources: [
+    "name": "Fusion Accelerant",
+    "value": 1500000,
+    "resources": [
       {
-        name: 'Organic Catalyst',
-        qty: 1
+        "name": "Organic Catalyst",
+        "qty": 1
       },
       {
-        name: 'Nitrogen Salt',
-        qty: 1
+        "name": "Nitrogen Salt",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 1481400,
+    "profitMargin": 98.76,
+    "profitMarkup": 7964.516129032258,
+    "rawMaterialsTotalCost": 18600
   },
   {
-    name: 'Circuit Board',
-    value: 916250,
-    resources: [
+    "name": "Circuit Board",
+    "value": 916250,
+    "resources": [
       {
-        name: 'Poly Fibre',
-        qty: 1
+        "name": "Poly Fibre",
+        "qty": 1
       },
       {
-        name: 'Heat Capacitor',
-        qty: 1
+        "name": "Heat Capacitor",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 891850,
+    "profitMargin": 97.33697135061391,
+    "profitMarkup": 3655.122950819672,
+    "rawMaterialsTotalCost": 24400
   },
   {
-    name: 'Liquid Explosive',
-    value: 800500,
-    resources: [
+    "name": "Liquid Explosive",
+    "value": 800500,
+    "resources": [
       {
-        name: 'Acid',
-        qty: 1
+        "name": "Acid",
+        "qty": 1
       },
       {
-        name: 'Unstable Gel',
-        qty: 1
+        "name": "Unstable Gel",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 784300,
+    "profitMargin": 97.97626483447846,
+    "profitMarkup": 4841.358024691358,
+    "rawMaterialsTotalCost": 16200
   },
   {
-    name: 'Living Glass',
-    value: 566000,
-    resources: [
+    "name": "Living Glass",
+    "value": 566000,
+    "resources": [
       {
-        name: 'Glass',
-        qty: 5
+        "name": "Glass",
+        "qty": 5
       },
       {
-        name: 'Lubricant',
-        qty: 1
+        "name": "Lubricant",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 555700,
+    "profitMargin": 98.18021201413427,
+    "profitMarkup": 5395.145631067961,
+    "rawMaterialsTotalCost": 10300
   },
   {
-    name: 'Semiconductor',
-    value: 400000,
-    resources: [
+    "name": "Semiconductor",
+    "value": 400000,
+    "resources": [
       {
-        name: 'Nitrogen Salt',
-        qty: 1
+        "name": "Nitrogen Salt",
+        "qty": 1
       },
       {
-        name: 'Thermic Condensate',
-        qty: 1
+        "name": "Thermic Condensate",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 387600,
+    "profitMargin": 96.89999999999999,
+    "profitMarkup": 3125.8064516129034,
+    "rawMaterialsTotalCost": 12400
   },
   {
-    name: 'Hot Ice',
-    value: 400000,
-    resources: [
+    "name": "Hot Ice",
+    "value": 400000,
+    "resources": [
       {
-        name: 'Enriched Carbon',
-        qty: 1
+        "name": "Enriched Carbon",
+        "qty": 1
       },
       {
-        name: 'Nitrogen Salt',
-        qty: 1
+        "name": "Nitrogen Salt",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 387600,
+    "profitMargin": 96.89999999999999,
+    "profitMarkup": 3125.8064516129034,
+    "rawMaterialsTotalCost": 12400
   },
   {
-    name:'Organic Catalyst',
-    value: 320000,
-    resources: [
+    "name": "Organic Catalyst",
+    "value": 320000,
+    "resources": [
       {
-        name: 'Thermic Condensate',
-        qty: 1
+        "name": "Thermic Condensate",
+        "qty": 1
       },
       {
-        name: 'Enriched Carbon',
-        qty: 1
+        "name": "Enriched Carbon",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 307600,
+    "profitMargin": 96.125,
+    "profitMarkup": 2480.6451612903224,
+    "rawMaterialsTotalCost": 12400
   },
   {
-    name: 'Acid',
-    value: 188000,
-    resources: [
+    "name": "Acid",
+    "value": 188000,
+    "resources": [
       {
-        name: 'Mordite',
-        qty: 25
+        "name": "Mordite",
+        "qty": 25
       },
       {
-        name: 'Fungal Mould',
-        qty: 600
+        "name": "Fungal Mould",
+        "qty": 600
       }
-    ]
+    ],
+    "profit": 177400,
+    "profitMargin": 94.36170212765957,
+    "profitMarkup": 1673.5849056603772,
+    "rawMaterialsTotalCost": 10600
   },
   {
-    name: 'Heat Capacitor',
-    value: 180000,
-    resources: [
+    "name": "Heat Capacitor",
+    "value": 180000,
+    "resources": [
       {
-        name: 'Solanium',
-        qty: 200
+        "name": "Solanium",
+        "qty": 200
       },
       {
-        name: 'Frost Crystal',
-        qty: 100
+        "name": "Frost Crystal",
+        "qty": 100
       }
-    ]
+    ],
+    "profit": 164800,
+    "profitMargin": 91.55555555555556,
+    "profitMarkup": 1084.2105263157896,
+    "rawMaterialsTotalCost": 15200
   },
   {
-    name: 'Grantine',
-    value: 150000,
-    resources: [
+    "name": "Grantine",
+    "value": 150000,
+    "resources": [
       {
-        name: 'Ionised Cobalt',
-        qty: 50
+        "name": "Ionised Cobalt",
+        "qty": 50
       },
       {
-        name: 'Dioxite',
-        qty: 50
+        "name": "Dioxite",
+        "qty": 50
       }
-    ]
+    ],
+    "profit": 126850,
+    "profitMargin": 84.56666666666666,
+    "profitMarkup": 547.9481641468683,
+    "rawMaterialsTotalCost": 23150
   },
   {
-    name: 'Geodesite',
-    value: 150000,
-    resources: [
+    "name": "Geodesite",
+    "value": 150000,
+    "resources": [
       {
-        name: 'Dirty Bronze',
-        qty: 1
+        "name": "Dirty Bronze",
+        "qty": 1
       },
       {
-        name: 'Herox',
-        qty: 1
+        "name": "Herox",
+        "qty": 1
       },
       {
-        name: 'Lemmium',
-        qty: 1
+        "name": "Lemmium",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 149357,
+    "profitMargin": 99.57133333333333,
+    "profitMarkup": 23228.14930015552,
+    "rawMaterialsTotalCost": 643
   },
   {
-    name: 'Iridesite',
-    value: 150000,
-    resources: [
+    "name": "Iridesite",
+    "value": 150000,
+    "resources": [
       {
-        name: 'Aronium',
-        qty: 1
+        "name": "Aronium",
+        "qty": 1
       },
       {
-        name: 'Magno-Gold',
-        qty: 1
+        "name": "Magno-Gold",
+        "qty": 1
       },
       {
-        name: 'Grantine',
-        qty: 1
+        "name": "Grantine",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 83588,
+    "profitMargin": 55.72533333333334,
+    "profitMarkup": 125.86279588026261,
+    "rawMaterialsTotalCost": 66412
   },
   {
-    name: 'Poly Fibre',
-    value: 130000,
-    resources: [
+    "name": "Poly Fibre",
+    "value": 130000,
+    "resources": [
       {
-        name: 'Cactus Flesh',
-        qty: 100
+        "name": "Cactus Flesh",
+        "qty": 100
       },
       {
-        name: 'Star Bulb',
-        qty: 200
+        "name": "Star Bulb",
+        "qty": 200
       }
-    ]
+    ],
+    "profit": 120800,
+    "profitMargin": 92.92307692307692,
+    "profitMarkup": 1313.0434782608695,
+    "rawMaterialsTotalCost": 9200
   },
   {
-    name: 'Lubricant',
-    value: 110000,
-    resources: [
+    "name": "Lubricant",
+    "value": 110000,
+    "resources": [
       {
-        name: 'Faecium',
-        qty: 50
+        "name": "Faecium",
+        "qty": 50
       },
       {
-        name: 'Gamma Root',
-        qty: 400
+        "name": "Gamma Root",
+        "qty": 400
       }
-    ]
+    ],
+    "profit": 102100,
+    "profitMargin": 92.81818181818183,
+    "profitMarkup": 1292.4050632911392,
+    "rawMaterialsTotalCost": 7900
   },
   {
-    name: 'Nitrogen Salt',
-    value: 50000,
-    resources: [
+    "name": "Nitrogen Salt",
+    "value": 50000,
+    "resources": [
       {
-        name: 'Condensed Carbon',
-        qty: 50
+        "name": "Condensed Carbon",
+        "qty": 50
       },
       {
-        name: 'Radon',
-        qty: 250
+        "name": "Radon",
+        "qty": 250
       }
-    ]
+    ],
+    "profit": 43800,
+    "profitMargin": 87.6,
+    "profitMarkup": 706.4516129032259,
+    "rawMaterialsTotalCost": 6200
   },
   {
-    name: 'Enriched Carbon',
-    value: 50000,
-    resources: [
+    "name": "Enriched Carbon",
+    "value": 50000,
+    "resources": [
       {
-        name: 'Condensed Carbon',
-        qty: 50
+        "name": "Condensed Carbon",
+        "qty": 50
       },
       {
-        name: 'Radon',
-        qty: 250
+        "name": "Radon",
+        "qty": 250
       }
-    ]
+    ],
+    "profit": 43800,
+    "profitMargin": 87.6,
+    "profitMarkup": 706.4516129032259,
+    "rawMaterialsTotalCost": 6200
   },
   {
-    name: 'Thermic Condensate',
-    value: 50000,
-    resources: [
+    "name": "Thermic Condensate",
+    "value": 50000,
+    "resources": [
       {
-        name: 'Condensed Carbon',
-        qty: 50
+        "name": "Condensed Carbon",
+        "qty": 50
       },
       {
-        name: 'Sulphurine',
-        qty: 250
+        "name": "Sulphurine",
+        "qty": 250
       }
-    ]
+    ],
+    "profit": 43800,
+    "profitMargin": 87.6,
+    "profitMarkup": 706.4516129032259,
+    "rawMaterialsTotalCost": 6200
   },
   {
-    name: 'Unstable Gel',
-    value: 50000,
-    resources: [
+    "name": "Unstable Gel",
+    "value": 50000,
+    "resources": [
       {
-        name: 'Cactus Flesh',
-        qty: 200
+        "name": "Cactus Flesh",
+        "qty": 200
       }
-    ]
+    ],
+    "profit": 44400,
+    "profitMargin": 88.8,
+    "profitMarkup": 792.8571428571429,
+    "rawMaterialsTotalCost": 5600
   },
   {
-    name: 'Warp Cell',
-    value: 46750,
-    resources: [
+    "name": "Warp Cell",
+    "value": 46750,
+    "resources": [
       {
-        name: 'Antimatter Housing',
-        qty: 1
+        "name": "Antimatter Housing",
+        "qty": 1
       },
       {
-        name: 'Antimatter',
-        qty: 1
+        "name": "Antimatter",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 38425,
+    "profitMargin": 82.19251336898395,
+    "profitMarkup": 461.5615615615615,
+    "rawMaterialsTotalCost": 8325
   },
   {
-    name: 'Warp Hypercore',
-    value: 46750,
-    resources: [
+    "name": "Warp Hypercore",
+    "value": 46750,
+    "resources": [
       {
-        name: 'Antimatter',
-        qty: 1
+        "name": "Antimatter",
+        "qty": 1
       },
       {
-        name: 'Storm Crystal',
-        qty: 1
+        "name": "Storm Crystal",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": -116805,
+    "profitMargin": -249.85026737967914,
+    "profitMarkup": -71.4163431261655,
+    "rawMaterialsTotalCost": 163555
   },
   {
-    name: 'Lemmium',
-    value: 25000,
-    resources: [
+    "name": "Lemmium",
+    "value": 25000,
+    "resources": [
       {
-        name: 'Uranium',
-        qty: 1
+        "name": "Uranium",
+        "qty": 1
       },
       {
-        name: 'Pure Ferrite',
-        qty: 1
+        "name": "Pure Ferrite",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 24910,
+    "profitMargin": 99.64,
+    "profitMarkup": 27677.777777777777,
+    "rawMaterialsTotalCost": 90
   },
   {
-    name: 'Dirty Bronze',
-    value: 25000,
-    resources: [
+    "name": "Dirty Bronze",
+    "value": 25000,
+    "resources": [
       {
-        name: 'Pyrite',
-        qty: 1
+        "name": "Pyrite",
+        "qty": 1
       },
       {
-        name: 'Pure Ferrite',
-        qty: 1
+        "name": "Pure Ferrite",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 24910,
+    "profitMargin": 99.64,
+    "profitMarkup": 27677.777777777777,
+    "rawMaterialsTotalCost": 90
   },
   {
-    name: 'Magno-Gold',
-    value: 25000,
-    resources: [
+    "name": "Magno-Gold",
+    "value": 25000,
+    "resources": [
       {
-        name: 'Ionised Cobalt',
-        qty: 50
+        "name": "Ionised Cobalt",
+        "qty": 50
       },
       {
-        name: 'Phosphorus',
-        qty: 1
+        "name": "Phosphorus",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 4888,
+    "profitMargin": 19.552,
+    "profitMarkup": 24.30389817024662,
+    "rawMaterialsTotalCost": 20112
   },
   {
-    name: 'Aronium',
-    value: 25000,
-    resources: [
+    "name": "Aronium",
+    "value": 25000,
+    "resources": [
       {
-        name: 'Ionised Cobalt',
-        qty: 50
+        "name": "Ionised Cobalt",
+        "qty": 50
       },
       {
-        name: 'Paraffinium',
-        qty: 50
+        "name": "Paraffinium",
+        "qty": 50
       }
-    ]
+    ],
+    "profit": 1850,
+    "profitMargin": 7.3999999999999995,
+    "profitMarkup": 7.991360691144708,
+    "rawMaterialsTotalCost": 23150
   },
   {
-    name: 'Herox',
-    value: 25000,
-    resources: [
+    "name": "Herox",
+    "value": 25000,
+    "resources": [
       {
-        name: 'Ammonia',
-        qty: 1
+        "name": "Ammonia",
+        "qty": 1
       },
       {
-        name: 'Ionised Cobalt',
-        qty: 1
+        "name": "Ionised Cobalt",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": 24537,
+    "profitMargin": 98.148,
+    "profitMarkup": 5299.5680345572355,
+    "rawMaterialsTotalCost": 463
   },
   {
-    name: 'Amino Chamber',
-    value: 12300,
-    resources: [
+    "name": "Amino Chamber",
+    "value": 12300,
+    "resources": [
       {
-        name: 'Metal Plating',
-        qty: 1
+        "name": "Metal Plating",
+        "qty": 1
       },
       {
-        name: 'Chlorine',
-        qty: 20
+        "name": "Chlorine",
+        "qty": 20
       },
       {
-        name: 'Condensed Carbon',
-        qty: 25
+        "name": "Condensed Carbon",
+        "qty": 25
       }
-    ]
+    ],
+    "profit": -1040,
+    "profitMargin": -8.455284552845528,
+    "profitMarkup": -7.796101949025487,
+    "rawMaterialsTotalCost": 13340
   },
   {
-    name: 'Antimatter Housing',
-    value: 6500,
-    resources: [
+    "name": "Antimatter Housing",
+    "value": 6500,
+    "resources": [
       {
-        name: 'Oxygen',
-        qty: 30
+        "name": "Oxygen",
+        "qty": 30
       },
       {
-        name: 'Ferrite Dust',
-        qty: 50
+        "name": "Ferrite Dust",
+        "qty": 50
       }
-    ]
+    ],
+    "profit": 4780,
+    "profitMargin": 73.53846153846155,
+    "profitMarkup": 277.90697674418607,
+    "rawMaterialsTotalCost": 1720
   },
   {
-    name: 'Magnetic Resonator',
-    value: 6150,
-    resources: [
+    "name": "Magnetic Resonator",
+    "value": 6150,
+    "resources": [
       {
-        name: 'Magnetised Ferrite',
-        qty: 40
+        "name": "Magnetised Ferrite",
+        "qty": 40
       },
       {
-        name: 'Ionised Cobalt',
-        qty: 40
+        "name": "Ionised Cobalt",
+        "qty": 40
       }
-    ]
+    ],
+    "profit": -13170,
+    "profitMargin": -214.14634146341464,
+    "profitMarkup": -68.16770186335404,
+    "rawMaterialsTotalCost": 19320
   },
   {
-    name: 'Solar Mirror',
-    value: 6150,
-    resources: [
+    "name": "Solar Mirror",
+    "value": 6150,
+    "resources": [
       {
-        name: 'Gold',
-        qty: 40
+        "name": "Gold",
+        "qty": 40
       },
       {
-        name: 'Silver',
-        qty: 30
+        "name": "Silver",
+        "qty": 30
       },
       {
-        name: 'Chromatic Metal',
-        qty: 25
+        "name": "Chromatic Metal",
+        "qty": 25
       }
-    ]
+    ],
+    "profit": -11085,
+    "profitMargin": -180.2439024390244,
+    "profitMarkup": -64.31679721496954,
+    "rawMaterialsTotalCost": 17235
   },
   {
-    name: 'Antimatter',
-    value: 5233,
-    resources: [
+    "name": "Antimatter",
+    "value": 5233,
+    "resources": [
       {
-        name: 'Chromatic Metal',
-        qty: 25
+        "name": "Chromatic Metal",
+        "qty": 25
       },
       {
-        name: 'Condensed Carbon',
-        qty: 20
+        "name": "Condensed Carbon",
+        "qty": 20
       }
-    ]
+    ],
+    "profit": -1372,
+    "profitMargin": -26.218230460538887,
+    "profitMarkup": -20.77214231642695,
+    "rawMaterialsTotalCost": 6605
   },
   {
-    name: 'Quantum Computer',
-    value: 4200,
-    resources: [
+    "name": "Quantum Computer",
+    "value": 4200,
+    "resources": [
       {
-        name: 'Microprocessor',
-        qty: 1
+        "name": "Microprocessor",
+        "qty": 1
       },
       {
-        name: 'Antimatter',
-        qty: 1
+        "name": "Antimatter",
+        "qty": 1
       },
       {
-        name: 'Chromatic Metal',
-        qty: 25
+        "name": "Chromatic Metal",
+        "qty": 25
       }
-    ]
+    ],
+    "profit": -18680,
+    "profitMargin": -444.76190476190476,
+    "profitMarkup": -81.64335664335664,
+    "rawMaterialsTotalCost": 22880
   },
   {
-    name: 'Hydraulic Wiring',
-    value: 3600,
-    resources: [
+    "name": "Hydraulic Wiring",
+    "value": 3600,
+    "resources": [
       {
-        name: 'Carbon Nanotubes',
-        qty: 2
+        "name": "Carbon Nanotubes",
+        "qty": 2
       },
       {
-        name: 'Salt',
-        qty: 20
+        "name": "Salt",
+        "qty": 20
       },
       {
-        name: 'Di-hydrogen',
-        qty: 40
+        "name": "Di-hydrogen",
+        "qty": 40
       }
-    ]
+    ],
+    "profit": -4440,
+    "profitMargin": -123.33333333333334,
+    "profitMarkup": -55.223880597014926,
+    "rawMaterialsTotalCost": 8040
   },
   {
-    name: 'AtlasPass v3',
-    value: 2613,
-    resources: [
+    "name": "AtlasPass v3",
+    "value": 2613,
+    "resources": [
       {
-        name: 'Emeril',
-        qty: 200
+        "name": "Emeril",
+        "qty": 200
       },
       {
-        name: 'Microprocessor',
-        qty: 1
+        "name": "Microprocessor",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": -62537,
+    "profitMargin": -2393.302717183314,
+    "profitMarkup": -95.98925556408288,
+    "rawMaterialsTotalCost": 65150
   },
   {
-    name: 'Microprocessor',
-    value: 2000,
-    resources: [
+    "name": "Microprocessor",
+    "value": 2000,
+    "resources": [
       {
-        name: 'Chromatic Metal',
-        qty: 40
+        "name": "Chromatic Metal",
+        "qty": 40
       },
       {
-        name: 'Carbon Nanotubes',
-        qty: 1
+        "name": "Carbon Nanotubes",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": -8150,
+    "profitMargin": -407.5,
+    "profitMarkup": -80.29556650246306,
+    "rawMaterialsTotalCost": 10150
   },
   {
-    name: 'AtlasPass v2',
-    value: 1856,
-    resources: [
+    "name": "AtlasPass v2",
+    "value": 1856,
+    "resources": [
       {
-        name: 'Cadmium',
-        qty: 200
+        "name": "Cadmium",
+        "qty": 200
       },
       {
-        name: 'Microprocessor',
-        qty: 1
+        "name": "Microprocessor",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": -55094,
+    "profitMargin": -2968.426724137931,
+    "profitMarkup": -96.74100087796312,
+    "rawMaterialsTotalCost": 56950
   },
   {
-    name: 'AtlasPass v1',
-    value: 825,
-    resources: [
+    "name": "AtlasPass v1",
+    "value": 825,
+    "resources": [
       {
-        name: 'Copper',
-        qty: 200
+        "name": "Copper",
+        "qty": 200
       },
       {
-        name: 'Microprocessor',
-        qty: 1
+        "name": "Microprocessor",
+        "qty": 1
       }
-    ]
+    ],
+    "profit": -31325,
+    "profitMargin": -3796.969696969697,
+    "profitMarkup": -97.4339035769829,
+    "rawMaterialsTotalCost": 32150
   },
   {
-    name: 'Metal Plating',
-    value: 800,
-    resources: [
+    "name": "Metal Plating",
+    "value": 800,
+    "resources": [
       {
-        name: 'Ferrite Dust',
-        qty: 50
+        "name": "Ferrite Dust",
+        "qty": 50
       }
-    ]
+    ],
+    "profit": 100,
+    "profitMargin": 12.5,
+    "profitMarkup": 14.285714285714285,
+    "rawMaterialsTotalCost": 700
   },
   {
-    name: 'Hermetic Seal',
-    value: 800,
-    resources: [
+    "name": "Hermetic Seal",
+    "value": 800,
+    "resources": [
       {
-        name: 'Condensed Carbon',
-        qty: 30
+        "name": "Condensed Carbon",
+        "qty": 30
       }
-    ]
+    ],
+    "profit": 80,
+    "profitMargin": 10,
+    "profitMarkup": 11.11111111111111,
+    "rawMaterialsTotalCost": 720
   },
   {
-    name: 'Carbon Nanotubes',
-    value: 500,
-    resources: [
+    "name": "Carbon Nanotubes",
+    "value": 500,
+    "resources": [
       {
-        name: 'Carbon',
-        qty: 50
+        "name": "Carbon",
+        "qty": 50
       }
-    ]
+    ],
+    "profit": 150,
+    "profitMargin": 30,
+    "profitMarkup": 42.857142857142854,
+    "rawMaterialsTotalCost": 350
   },
   {
-    name: 'Glass',
-    value: 200,
-    resources: [
+    "name": "Glass",
+    "value": 200,
+    "resources": [
       {
-        name: 'Frost Crystal',
-        qty: 40
+        "name": "Frost Crystal",
+        "qty": 40
       }
-    ]
+    ],
+    "profit": -280,
+    "profitMargin": -140,
+    "profitMarkup": -58.333333333333336,
+    "rawMaterialsTotalCost": 480
   },
   {
-    name: 'Di-hydrogen Jelly',
-    value: 200,
-    resources: [
+    "name": "Di-hydrogen Jelly",
+    "value": 200,
+    "resources": [
       {
-        name: 'Di-hydrogen',
-        qty: 40
+        "name": "Di-hydrogen",
+        "qty": 40
       }
-    ]
+    ],
+    "profit": -1160,
+    "profitMargin": -580,
+    "profitMarkup": -85.29411764705883,
+    "rawMaterialsTotalCost": 1360
   },
   {
-    name:'Ion Battery',
-    value: 200,
-    resources: [
+    "name": "Ion Battery",
+    "value": 200,
+    "resources": [
       {
-        name: 'Ferrite Dust',
-        qty: 20
+        "name": "Ferrite Dust",
+        "qty": 20
       },
       {
-        name: 'Cobalt',
-        qty: 10
+        "name": "Cobalt",
+        "qty": 10
       }
-    ]
+    ],
+    "profit": -2060,
+    "profitMargin": -1030,
+    "profitMarkup": -91.1504424778761,
+    "rawMaterialsTotalCost": 2260
   },
   {
-    name:'Life Support Gel',
-    value: 200,
-    resources: [
+    "name": "Life Support Gel",
+    "value": 200,
+    "resources": [
       {
-        name: 'Di-hydrogen Jelly',
-        qty: 1
+        "name": "Di-hydrogen Jelly",
+        "qty": 1
       },
       {
-        name:'Carbon',
-        qty: 20
+        "name": "Carbon",
+        "qty": 20
       }
-    ]
+    ],
+    "profit": -1300,
+    "profitMargin": -650,
+    "profitMarkup": -86.66666666666667,
+    "rawMaterialsTotalCost": 1500
   }
 ];
 
@@ -875,15 +1074,15 @@ function itemNameFromParams() {
 
 // Pages
 
-function indexPage(data = craftingData) {
+function indexPage(data = craftingData, sort = "value", dir = "desc") {
   let table = displayElement('', 'table#indexPage');
 
-  var headings = ['<b>Item</b>', '<b>Value</b>'];
+  var headings = ['<b>Item</b>', '<b>Value</b>', '<b>Profit</b>', '<b>Markup</b>', '<b>Margin</b>'];
   addTableHeading(headings, table);
 
   data.forEach( row => {
-    var {name, value} = row;
-    var cells = [`<a href='/?item=${name}'>${name}</a>`, numberWithCommas(value)];
+    var {name, value, profit, profitMarkup, profitMargin} = row;
+    var cells = [`<a href='/?item=${name}'>${name}</a>`, numberWithCommas(value), numberWithCommas(profit), numberAsPercentage(profitMarkup), numberAsPercentage(profitMargin)];
     addTableRow(cells, table);
   });
 }
@@ -893,7 +1092,7 @@ function shoppingList(item) {
   var head = `
 <h1>${component.name}</h1>
 <p class='component-value units'>Value ${numberWithCommas(component.value)}u</p>
-<p class='component-profit units'>Profit ${numberWithCommas(component.profit)}u / Margin: ${component.profitMargin} / Markup: ${component.profitMarkup}</p>
+<p class='component-profit units'>Profit ${numberWithCommas(component.profit)}u / Margin: ${numberAsPercentage(component.profitMargin)} / Markup: ${numberAsPercentage(component.profitMarkup)}</p>
 <p class='component-cost units'>Cost ${numberWithCommas(component.rawMaterialsTotalCost)}u</p>
 <p><a href='https://nomanssky.fandom.com/wiki/${component.name}'>${component.name} on No Man's Sky Wiki</a></p>
 <p>
@@ -950,8 +1149,8 @@ function showRawMaterials(item){
       [
         {name: '<b>Total Cost</b>', qty: '', cost: `<b>${numberWithCommas(componentTree.rawMaterialsTotalCost)}</b>`},
         {name: '<b>Net Profit</b>', qty: '', cost: `<b>${numberWithCommas(componentTree.profit)}</b>`},
-        {name: '<b>Profit Margin</b>', qty: '', cost: `<b>${componentTree.profitMargin}</b>`},
-        {name: '<b>Profit Markup</b>', qty: '', cost: `<b>${componentTree.profitMarkup}</b>`},
+        {name: '<b>Profit Markup</b>', qty: '', cost: `<b>${numberAsPercentage(componentTree.profitMarkup)}</b>`},
+        {name: '<b>Profit Margin</b>', qty: '', cost: `<b>${numberAsPercentage(componentTree.profitMargin)}</b>`}
       ]
     ));
 }
@@ -1026,14 +1225,8 @@ function buildComponentTree(componentName, root = undefined, quantity = 1) {
     root.rawMaterialsTotalCost = root.aggregatedRawMaterials.reduce((p,c) => p + c.cost, 0);
 
     root.profit = root.value - root.rawMaterialsTotalCost;
-
-    root.profitMargin = (((root.profit / root.value) * 100)
-                         .toFixed(1))
-      .toString(10) + '%';
-
-    root.profitMarkup = (((root.profit / root.rawMaterialsTotalCost) * 100)
-                         .toFixed(1))
-      .toString(10) + '%';
+    root.profitMargin = (root.profit / root.value) * 100;
+    root.profitMarkup = (root.profit / root.rawMaterialsTotalCost) * 100;
   }
 
   return resourceTree;
@@ -1073,6 +1266,14 @@ function orderByValue(a, b) {
 
 function orderByCost(a, b) {
   return a.cost > b.cost ? 1 : -1;
+}
+
+function orderByAsc(a, b) {
+  return a > b ? 1 : -1;
+}
+
+function orderByDesc(a, b) {
+  return a < b ? 1 : -1;
 }
 
 // html helpers
@@ -1148,6 +1349,10 @@ function addTableRow(cells, table) {
 
 function numberWithCommas(n) {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function numberAsPercentage(n) {
+  return `${n.toFixed(1).toString(10)}%`;
 }
 
 // graphing... generate graphviz directed graph
