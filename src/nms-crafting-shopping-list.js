@@ -1133,7 +1133,7 @@ function shoppingList(item) {
 <p class='component-value units'>Value ${numberWithCommas(component.value)}u</p>
 <p class='component-profit units'>Profit ${numberWithCommas(component.profit)}u / Margin: ${numberAsPercentage(component.profitMargin)} / Markup: ${numberAsPercentage(component.profitMarkup)}</p>
 <p class='component-cost units'>Cost ${numberWithCommas(component.rawMaterialsTotalCost)}u</p>
-<p><a href='https://nomanssky.fandom.com/wiki/${component.name}'>${component.name} on No Man's Sky Wiki</a></p>
+<p><a href='https://nomanssky.fandom.com/wiki/${component.name}'>${component.name} on No Man's Sky Wiki ${externalLinkIconImg()}</a></p>
 <p>
   <em>After harvesting the <a href='#raw_materials'>raw materials</a>, craft components in the order listed. See the <a href='#graph'>construction overview</a> for a visualisation of the component resources</em>
 </p>
@@ -1144,8 +1144,13 @@ function shoppingList(item) {
     displayElement('Craftable Components', 'h2');
 
     // Craftable shopping list...
-    let componentTable = displayResourcesTable(null, document.body, ['Component', 'Quantity', 'Cost']);
-    showResources(component.aggregatedComponents, componentTable);
+    let componentTable = displayTable(component.aggregatedComponents,
+                                      document.body,
+                                      [
+                                        'Component',
+                                        'Quantity',
+                                        'Cost'
+                                      ]);
   }
 
   displayElement(`<a name='raw_materials'></a>`);
@@ -1159,33 +1164,43 @@ function shoppingList(item) {
 
 }
 
-function rawMaterialsPage(rawMaterial) {
-  let value = rawMaterials.find( i => i.name == rawMaterial ).value;
-
-  let head = `
+function rawMaterialPageHead(rawMaterial, value) {
+  return `
 <h1>${rawMaterial}</h1>
 <p class='component-value units'>value ${numberWithCommas(value)}
-<p><a href='https://nomanssky.fandom.com/wiki/${rawMaterial}'>${rawMaterial} on No Man's Sky Wiki</a></p>
+<p><a href='https://nomanssky.fandom.com/wiki/${rawMaterial}'>${rawMaterial} on No Man's Sky Wiki ${externalLinkIconImg()}</a></p>
   `;
-  displayTemplate(head);
+}
+
+function rawMaterialsPage(rawMaterial) {
+  let value = rawMaterials.find( i => i.name == rawMaterial ).value;
+  displayTemplate(rawMaterialPageHead(rawMaterial, value));
 }
 
 function showResources(resources, table) {
   resources.forEach(
     (resource) => {
       if(resource) {
-        addTableRow([`<a href='/?item=${resource.name}'>${resource.name}</a>`, resource.qty, numberWithCommas(resource.cost)], table);
+        addTableRow([
+          `<a href='/?item=${resource.name}'>${resource.name}</a>`,
+          resource.qty,
+          numberWithCommas(resource.cost)
+        ], table);
       };
     }
   );
 }
 
-function showRawMaterials(item){
+function externalLinkIconImg() {
+  return `<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=" />`;
+}
+
+function showRawMaterials(item, parentElement = document.body){
   let componentTree = buildComponentTree(item);
 
-  displayResourcesTable(
+  displayTable(
     componentTree.aggregatedRawMaterials,
-    document.body,
+    parentElement,
     [
       'Raw Material',
       'Quantity',
@@ -1404,11 +1419,11 @@ function displayHeading(text, container = document.body) {
   return displayElement(text, 'h1', container);
 }
 
-function displayResourcesTable(items,
-                               container = document.body,
-                               headings = ['Component', 'Quantity', 'Cost'],
-                               footerItems = undefined,
-                               selector = 'table#resources_table' ) {
+function displayTable(items,
+                      container = document.body,
+                      headings = ['Component', 'Quantity', 'Cost'],
+                      footerItems = undefined,
+                      selector = 'table#resources_table' ) {
 
   var table = displayElement('', selector);
   container.appendChild(table);
