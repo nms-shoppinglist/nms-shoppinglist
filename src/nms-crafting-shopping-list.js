@@ -1184,14 +1184,37 @@ function showRawMaterials(item){
   let componentTree = buildComponentTree(item);
 
   displayResourcesTable(
-    componentTree.aggregatedRawMaterials.concat(
-      [
-        {name: '<b>Total Cost</b>', qty: '', cost: `<b>${numberWithCommas(componentTree.rawMaterialsTotalCost)}</b>`},
-        {name: '<b>Net Profit</b>', qty: '', cost: `<b>${numberWithCommas(componentTree.profit)}</b>`},
-        {name: '<b>Profit Markup</b>', qty: '', cost: `<b>${numberAsPercentage(componentTree.profitMarkup)}</b>`},
-        {name: '<b>Profit Margin</b>', qty: '', cost: `<b>${numberAsPercentage(componentTree.profitMargin)}</b>`}
-      ]
-    ));
+    componentTree.aggregatedRawMaterials,
+    document.body,
+    [
+      'Raw Material',
+      'Quantity',
+      'Cost'
+    ],
+    [
+      {
+        name: '<b>Total Cost</b>',
+        qty: '',
+        cost: `<b>${numberWithCommas(componentTree.rawMaterialsTotalCost)}</b>`
+      },
+      {
+        name: '<b>Net Profit</b>',
+        qty: '',
+        cost: `<b>${numberWithCommas(componentTree.profit)}</b>`
+      },
+      {
+        name: '<b>Profit Markup</b>',
+        qty: '',
+        cost: `<b>${numberAsPercentage(componentTree.profitMarkup)}</b>`
+      },
+      {
+        name: '<b>Profit Margin</b>',
+        qty: '',
+        cost: `<b>${numberAsPercentage(componentTree.profitMargin)}</b>`
+      }
+    ],
+    'table#raw_materials'
+    );
 }
 
 // Data functions...
@@ -1339,7 +1362,7 @@ function reSortTable(e) {
   // destroy the table
   table.remove();
 
-  // re-render index page sorted
+  // re-render index page sorted, flip sort order (!reverse)
   indexPage(undefined, sortIndex, table.dataset.reverse != 'true');
 }
 
@@ -1381,15 +1404,49 @@ function displayHeading(text, container = document.body) {
   return displayElement(text, 'h1', container);
 }
 
-function displayResourcesTable(items, container = document.body, headings = ['Component', 'Quantity', 'Cost']) {
-  var table = displayElement('', 'table#resources_table');
+function displayResourcesTable(items,
+                               container = document.body,
+                               headings = ['Component', 'Quantity', 'Cost'],
+                               footerItems = undefined,
+                               selector = 'table#resources_table' ) {
+
+  var table = displayElement('', selector);
   container.appendChild(table);
 
   addTableHeading(headings.map( h => `<b>${h}</b>` ), table);
 
-  items?.forEach((i) => addTableRow([i.name, i.qty, numberWithCommas(i.cost)], table));
+  items?.forEach((i) =>
+    addTableRow([
+      `<a href="/?item=${i.name}">${i.name}</a>`,
+      i.qty,
+      numberWithCommas(i.cost)
+    ], table));
+
+  if (footerItems) {
+    addTableFooter(footerItems, table);
+  }
 
   return table;
+}
+
+function addTableFooter(rows, table) {
+  var tfoot = document.createElement('tfoot');
+
+  rows.forEach((cell) => {
+    var tr = document.createElement('tr');
+
+    ['name', 'qty', 'cost'].forEach( column => {
+      var th = document.createElement('th');
+      if (column) th.innerHTML = cell[column];
+      tr.appendChild(th);
+    });
+
+    tfoot.appendChild(tr);
+  });
+
+  table.appendChild(tfoot);
+
+  return tfoot.children;
 }
 
 function addTableHeading(cells, table) {
