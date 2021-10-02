@@ -1085,6 +1085,9 @@ function indexPage(data = craftingData, sort = 1, reverse = 'true') {
                   '<b>Profit</b>',
                   '<b>Markup</b>',
                   '<b>Margin</b>'];
+
+  headings[sort] = `<span class="${reverse == 'true' ? 'reverse' : ''}">${headings[sort]}</span>`;
+
   let headingElements = addTableHeading(headings, table);
 
   Array.from(headingElements).forEach( th => th.onclick = reSortTable);
@@ -1471,6 +1474,7 @@ function addTableHeading(cells, table) {
   cells.forEach((c) => {
     var th = document.createElement('th');
     th.innerHTML = c;
+    applyHeadingCss(th);
     tr.appendChild(th);
   });
 
@@ -1478,6 +1482,11 @@ function addTableHeading(cells, table) {
   table.appendChild(thead);
 
   return tr.children;
+}
+
+function applyHeadingCss(th) {
+  let classes = Array.from(th.children).map(e => e.className).join(' ');
+  th.className = classes;
 }
 
 function addTableRow(cells, table) {

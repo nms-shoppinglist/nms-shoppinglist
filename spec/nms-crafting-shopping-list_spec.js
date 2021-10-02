@@ -6,69 +6,41 @@ let example = it;
 
 describe ("No Man's Sky - Crafting Shopping List", () => {
 
-  describe('pages', () => {
-    describe('shopping list', () => {
-      let item = 'Solar Mirror';
-
-      beforeEach(() => {
-        shoppingList(item);
-      });
-
-      it('displays item title', () => {
-        let title = document.querySelector('h1');
-        expect(title.innerText).toEqual('Solar Mirror');
-      });
-
-      it('displays item value', () => {
-        let value = document.querySelector('p.component-value').innerText;
-        expect(value).toEqual('Value 6,150u');
-      });
-
-      it('displays item profit', () => {
-        let profit = document.querySelector('p.component-profit').innerText;
-        expect(profit).toEqual('Profit -11,085u / Margin: -180.2% / Markup: -64.3%');
-      });
-
-      it('displays item cost', () => {
-        let profit = document.querySelector('p.component-cost').innerText;
-        expect(profit).toEqual('Cost 17,235u');
-      });
-
-      it(`displays item raw materials`, () => {
-        let profit = document.querySelector('h2#raw_materials_title').innerText;
-        expect(profit).toEqual('Raw Materials');
-
-        let rawMaterialsText = Array.from(
-          document.querySelector('#resources_table').children
-        ).map( e => e.innerText.replaceAll('\t', ' ').trim() );
-
-        expect(rawMaterialsText).toEqual(
-          [
-            `Component Quantity Cost`,
-            `Chromatic Metal 25 6,125`,
-            `Gold 40 8,080`,
-            `Silver 30 3,030`,
-            `Total Cost  17,235`,
-            `Net Profit  -11,085`,
-            `Profit Markup  -64.3%`,
-            `Profit Margin  -180.2%`,
-          ]);
-      });
-
-      it(`displays item construction overview`, () => {
-        let profit = document.querySelector('h2#graph').innerText;
-        expect(profit).toEqual('Construction Overview');
-      });
-
-      afterEach((done) => {
-        setTimeout(() => cleanUpRenderedHTML(done), 100);
-      });
-
-    });
-  });
-
-
   describe('HTML helpers', () => {
+
+    describe('addTableHeading', function (){
+
+      it('creates thead > tr > th elements from array of heading titles (as innerHTML)', () => {
+        let table = document.createElement('TABLE');
+        addTableHeading([
+          'a', 'b', 'c'
+        ], table);
+
+        let thead = table.querySelector('thead');
+
+        expect(thead.tagName).toEqual('THEAD');
+
+        let tr = table.querySelector('tr');
+
+        expect(tr.tagName).toEqual('TR');
+
+        let th_elelments = Array.from(tr.children);
+
+        expect(th_elelments.map( i => i.innerHTML )).toEqual([ 'a', 'b', 'c' ]);
+      });
+
+      it('applies css classes from innerHTML to the parent TH node', () => {
+        let table = document.createElement('TABLE');
+        addTableHeading([
+          '<b>a</b>', '<b>b</b>', '<span class="move me to th"><b>c</b></span>'
+        ], table);
+
+        let tr = table.querySelector('tr');
+        let th_elelments = Array.from(tr.children);
+
+        expect(th_elelments[2].className).toEqual('move me to th');
+      });
+    });
 
     describe('displayElement', () => {
 
@@ -118,7 +90,6 @@ describe ("No Man's Sky - Crafting Shopping List", () => {
 
         element.remove();
       });
-
 
     });
 
