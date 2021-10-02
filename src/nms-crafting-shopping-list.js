@@ -1086,7 +1086,7 @@ function indexPage(data = craftingData, sort = 1, reverse = 'true') {
                   '<b>Markup</b>',
                   '<b>Margin</b>'];
 
-  headings[sort] = `<span class="${reverse == 'true' ? 'reverse' : ''}">${headings[sort]}</span>`;
+  headings[sort] = `<span class="orderBy ${reverse ? 'reverse' : ''}">${headings[sort]}</span>`;
 
   let headingElements = addTableHeading(headings, table);
 
@@ -1486,7 +1486,9 @@ function addTableHeading(cells, table) {
 
 function applyHeadingCss(th) {
   let classes = Array.from(th.children).map(e => e.className).join(' ');
-  th.className = classes;
+  if (classes != '') {
+    th.className = classes;
+  }
 }
 
 function addTableRow(cells, table) {

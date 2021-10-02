@@ -1,3 +1,13 @@
+th.orderBy::before {
+  font-size: 0.7em;
+  cursor: pointer;
+  content: '▲';
+}
+
+th.orderBy.reverse::before {
+  content: '▼';
+}
+
 .units {
   vertical-align: bottom;
   text-align: center;
@@ -90,6 +100,10 @@ th, td  {
 
 th:first-child, td:first-child {
   text-align: left;
+}
+
+table#indexPage th {
+  cursor: pointer;
 }
 
 a, a:visited {
