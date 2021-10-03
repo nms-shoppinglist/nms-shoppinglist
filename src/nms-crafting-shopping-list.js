@@ -1075,7 +1075,15 @@ function itemNameFromParams() {
 // Pages
 
 function indexPage(data = craftingData, sort = 1, reverse = 'true') {
-  let table = displayElement('', 'table#indexPage', selector('#content'));
+  let content = selector('#content');
+
+  if( !selector('input#indexPageFilter') ) {
+    let filterInput = displayElement('', 'input#indexPageFilter', content);
+    filterInput.placeholder = 'Filter Components...';
+    filterInput.onkeyup = filterIndexPageTable;
+  }
+
+  let table = displayElement('', 'table#indexPage', content);
 
   table.dataset.sort = sort;
   table.dataset.reverse = reverse;
@@ -1367,14 +1375,10 @@ function orderByProperty(a,b,prop) {
 function reSortIndexPageTable(e) {
   let column = e.currentTarget;
 
-  var table = e.currentTarget.parentElement;
+  var table = document.querySelector('table#indexPage');
 
-  while( table == undefined || table.tagName != 'TABLE' ) {
-    table = table.parentElement;
-  }
-
-  // get column index
   let row = column.parentElement;
+
   let sortIndex = Array.from(row.children).findIndex( th => th == column );
 
   // destroy the table
@@ -1382,6 +1386,21 @@ function reSortIndexPageTable(e) {
 
   // re-render index page sorted, flip sort order (!reverse)
   indexPage(undefined, sortIndex, table.dataset.reverse != 'true');
+}
+
+function filterIndexPageTable(e) {
+  var table = document.querySelector('table#indexPage');
+
+  table.remove();
+
+  indexPage(
+    craftingData.filter( i =>
+      i.name.toLowerCase().includes(
+      e.srcElement.value.toLowerCase()
+    ) ),
+    table.dataset.sort,
+    table.dataset.reverse
+  );
 }
 
 // html helpers
