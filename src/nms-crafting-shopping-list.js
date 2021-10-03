@@ -1090,7 +1090,7 @@ function indexPage(data = craftingData, sort = 1, reverse = 'true') {
 
   let headingElements = addTableHeading(headings, table);
 
-  Array.from(headingElements).forEach( th => th.onclick = reSortTable);
+  Array.from(headingElements).forEach( th => th.onclick = reSortIndexPageTable);
 
   let orderingFuncs = [
     orderByName,
@@ -1364,7 +1364,7 @@ function orderByProperty(a,b,prop) {
   return a[prop] > b[prop] ? 1 : -1;
 }
 
-function reSortTable(e) {
+function reSortIndexPageTable(e) {
   let column = e.currentTarget;
 
   var table = e.currentTarget.parentElement;
